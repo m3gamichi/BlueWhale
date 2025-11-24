@@ -18,7 +18,7 @@ try:
     from requests.exceptions import RequestException
     import concurrent.futures
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Ip Scanner")
 
@@ -31,7 +31,7 @@ try:
         elif "." in ip:
             ip_type = "ipv4"
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} IP Type: {white}{ip_type}{blue}"
+            f"{Pre("+",color.RED)} IP Type: {color.WHITE}{ip_type}{color.BLUE}"
         )
 
     def IpPing(ip):
@@ -45,7 +45,7 @@ try:
             ping = "Succeed" if result.returncode == 0 else "Fail"
         except Exception:
             ping = "Fail"
-        print(f"{BEFORE + current_time_hour() + AFTER} {ADD} Ping: {white}{ping}{blue}")
+        print(f"{Pre("+",color.RED)} Ping: {color.WHITE}{ping}{color.BLUE}")
 
     def IpPort(ip):
         port_protocol_map = {
@@ -78,7 +78,7 @@ try:
                     if result == 0:
                         protocol = port_protocol_map.get(port, "Unknown")
                         print(
-                            f"{BEFORE + current_time_hour() + AFTER} {ADD} Port: {white}{port}{blue} Status: {white}Open{blue} Protocol: {white}{protocol}{blue}"
+                            f"{Pre("+",color.RED)} Port: {color.WHITE}{port}{color.BLUE} Status: {color.WHITE}Open{color.BLUE} Protocol: {color.WHITE}{protocol}{color.BLUE}"
                         )
             except Exception:
                 pass
@@ -93,7 +93,7 @@ try:
             dns = "None"
         if dns != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} DNS: {white}{dns}{blue}"
+                f"{Pre("+",color.RED)} DNS: {color.WHITE}{dns}{color.BLUE}"
             )
 
     def IpHostInfo(ip):
@@ -107,25 +107,25 @@ try:
         host_country = api.get("country", "None")
         if host_country != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} Host Country: {white}{host_country}{blue}"
+                f"{Pre("+",color.RED)} Host Country: {color.WHITE}{host_country}{color.BLUE}"
             )
 
         host_name = api.get("hostname", "None")
         if host_name != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} Host Name: {white}{host_name}{blue}"
+                f"{Pre("+",color.RED)} Host Name: {color.WHITE}{host_name}{color.BLUE}"
             )
 
         host_isp = api.get("org", "None")
         if host_isp != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} Host ISP: {white}{host_isp}{blue}"
+                f"{Pre("+",color.RED)} Host ISP: {color.WHITE}{host_isp}{color.BLUE}"
             )
 
         host_as = api.get("asn", "None")
         if host_as != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} Host AS: {white}{host_as}{blue}"
+                f"{Pre("+",color.RED)} Host AS: {color.WHITE}{host_as}{color.BLUE}"
             )
 
     def SslCertificateCheck(ip):
@@ -136,19 +136,19 @@ try:
                 with context.wrap_socket(sock, server_hostname=ip) as ssock:
                     cert = ssock.getpeercert()
                     print(
-                        f"{BEFORE + current_time_hour() + AFTER} {ADD} SSL Certificate: {white}{cert}{blue}"
+                        f"{Pre("+",color.RED)} SSL Certificate: {color.WHITE}{cert}{color.BLUE}"
                     )
         except Exception as e:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} SSL Certificate Check Failed: {white}{e}{blue}"
+                f"{Pre("+",color.RED)} SSL Certificate Check Failed: {color.WHITE}{e}{color.BLUE}"
             )
 
-    Slow(scan_banner)
-    ip = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Ip -> {reset}")
+    print(scan_banner)
+    ip = input(f"{Pre(">")} Ip -> {color.RESET}")
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
-    print(f"{BEFORE + current_time_hour() + AFTER} {ADD} Ip: {white}{ip}{blue}")
+    print(f"{Pre("+",color.RED)} Ip: {color.WHITE}{ip}{color.BLUE}")
     IpType(ip)
     IpPing(ip)
     IpDns(ip)
@@ -159,4 +159,4 @@ try:
 
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

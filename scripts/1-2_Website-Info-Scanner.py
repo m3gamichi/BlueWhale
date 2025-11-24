@@ -20,7 +20,7 @@ try:
     from requests.exceptions import RequestException
     from bs4 import BeautifulSoup
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Website Scanner")
 
@@ -33,14 +33,14 @@ try:
     def WebsiteFoundUrl(url):
         website_url = f"https://{url}" if not urlparse(url).scheme else url
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} Website: {white}{website_url}{blue}"
+            f"{Pre("+",color.RED)} Website: {color.WHITE}{website_url}{color.BLUE}"
         )
         return website_url
 
     def WebsiteDomain(website_url):
         domain = urlparse(website_url).netloc
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} Domain: {white}{domain}{blue}"
+            f"{Pre("+",color.RED)} Domain: {color.WHITE}{domain}{color.BLUE}"
         )
         return domain
 
@@ -50,7 +50,7 @@ try:
         except socket.gaierror:
             ip = "None"
         if ip != "None":
-            print(f"{BEFORE + current_time_hour() + AFTER} {ADD} IP: {white}{ip}{blue}")
+            print(f"{Pre("+",color.RED)} IP: {color.WHITE}{ip}{color.BLUE}")
         return ip
 
     def IpType(ip):
@@ -61,12 +61,12 @@ try:
         else:
             return
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} IP Type: {white}{type}{blue}"
+            f"{Pre("+",color.RED)} IP Type: {color.WHITE}{type}{color.BLUE}"
         )
 
     def WebsiteSecure(website_url):
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} Secure: {white}{website_url.startswith('https://')}{blue}"
+            f"{Pre("+",color.RED)} Secure: {color.WHITE}{website_url.startswith('https://')}{color.BLUE}"
         )
 
     def WebsiteStatus(website_url):
@@ -77,7 +77,7 @@ try:
         except RequestException:
             status_code = 404
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} Status Code: {white}{status_code}{blue}"
+            f"{Pre("+",color.RED)} Status Code: {color.WHITE}{status_code}{color.BLUE}"
         )
 
     def IpInfo(ip):
@@ -88,7 +88,7 @@ try:
         for key in ["country", "hostname", "isp", "org", "asn"]:
             if key in api:
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} Host {key.capitalize()}: {white}{api[key]}{blue}"
+                    f"{Pre("+",color.RED)} Host {key.capitalize()}: {color.WHITE}{api[key]}{color.BLUE}"
                 )
 
     def IpDns(ip):
@@ -98,7 +98,7 @@ try:
             dns = "None"
         if dns != "None":
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ADD} Host DNS: {white}{dns}{blue}"
+                f"{Pre("+",color.RED)} Host DNS: {color.WHITE}{dns}{color.BLUE}"
             )
 
     def WebsitePort(ip):
@@ -151,7 +151,7 @@ try:
                     sock.settimeout(1)
                     if sock.connect_ex((ip, port)) == 0:
                         print(
-                            f"{BEFORE + current_time_hour() + AFTER} {ADD} Port: {white}{port}{blue} Status: {white}Open{blue} Protocol: {white}{port_protocol_map.get(port, 'Unknown')}{blue}"
+                            f"{Pre("+",color.RED)} Port: {color.WHITE}{port}{color.BLUE} Status: {color.WHITE}Open{color.BLUE} Protocol: {color.WHITE}{port_protocol_map.get(port, 'Unknown')}{color.BLUE}"
                         )
             except:
                 pass
@@ -164,7 +164,7 @@ try:
             headers = requests.get(website_url, timeout=5).headers
             for header, value in headers.items():
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} HTTP Header: {white}{header}{blue} Value: {white}{value}{blue}"
+                    f"{Pre("+",color.RED)} HTTP Header: {color.WHITE}{header}{color.BLUE} Value: {color.WHITE}{value}{color.BLUE}"
                 )
         except RequestException:
             pass
@@ -179,7 +179,7 @@ try:
                 cert = sock.getpeercert()
             for key, value in cert.items():
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} SSL Certificate Key: {white}{key}{blue} Value: {white}{value}{blue}"
+                    f"{Pre("+",color.RED)} SSL Certificate Key: {color.WHITE}{key}{color.BLUE} Value: {color.WHITE}{value}{color.BLUE}"
                 )
         except:
             pass
@@ -196,7 +196,7 @@ try:
             response_headers = requests.get(website_url, timeout=5).headers
             for header in headers:
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} {'Missing' if header not in response_headers else 'Security'} Header: {white}{header}{blue}"
+                    f"{Pre("+",color.RED)} {'Missing' if header not in response_headers else 'Security'} Header: {color.WHITE}{header}{color.BLUE}"
                 )
         except RequestException:
             pass
@@ -212,7 +212,7 @@ try:
                     else "Not HttpOnly"
                 )
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} Cookie: {white}{cookie.name}{blue} Secure: {white}{secure}{blue} HttpOnly: {white}{httponly}{blue}"
+                    f"{Pre("+",color.RED)} Cookie: {color.WHITE}{cookie.name}{color.BLUE} Secure: {color.WHITE}{secure}{color.BLUE} HttpOnly: {color.WHITE}{httponly}{color.BLUE}"
                 )
         except RequestException:
             pass
@@ -234,20 +234,20 @@ try:
                     techs.append("Bootstrap")
             for tech in techs:
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} Detected Technology: {white}{tech}{blue}"
+                    f"{Pre("+",color.RED)} Detected Technology: {color.WHITE}{tech}{color.BLUE}"
                 )
         except:
             pass
 
-    Slow(scan_banner)
+    print(scan_banner)
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {INFO} Selected User-Agent: {white + user_agent}"
+        f"{Pre("!")} Selected User-Agent: {color.WHITE + user_agent}"
     )
     url = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Website URL -> {reset}"
+        f"{Pre(">")} Website URL -> {color.RESET}"
     )
-    Censored(url)
-    print(f"{BEFORE + current_time_hour() + AFTER} {WAIT} Scanning..{reset}")
+
+    print(f"{Pre("~")} Scanning..{color.RESET}")
 
     website_url = WebsiteFoundUrl(url)
     domain = WebsiteDomain(website_url)
@@ -267,4 +267,4 @@ try:
 
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

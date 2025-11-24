@@ -15,10 +15,9 @@ try:
     import re
     import time
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Username Tracker")
-
 try:
     user_agent = ChoiceUserAgent()
     headers = {"User-Agent": user_agent}
@@ -26,14 +25,13 @@ try:
     number_found = 0
     sites_and_urls_found = []
 
-    Slow(osint_banner)
+    print(osint_banner)
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {INFO} Selected User-Agent: {white + user_agent}"
+        f"{Pre("!")} Selected User-Agent: {color.WHITE + user_agent}"
     )
     username = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Username -> {reset}"
+        f"{Pre(">")} Username -> {color.RESET}"
     ).lower()
-    Censored(username)
 
     sites = {
         "Steam": {
@@ -580,7 +578,7 @@ try:
         },
     }
 
-    print(f"{BEFORE + current_time_hour() + AFTER} {WAIT} Scanning..")
+    print(f"{Pre("~")} Scanning..")
 
     session = requests.Session()
 
@@ -644,38 +642,38 @@ try:
 
                     if found:
                         number_found += 1
-                        sites_and_urls_found.append(f"{site}: {white + url}")
+                        sites_and_urls_found.append(f"{site}: {color.WHITE + url}")
                         print(
-                            f"{BEFORE_GREEN + current_time_hour() + AFTER_GREEN} {GEN_VALID} {site}: {white + url}"
+                            f"{Pre("+",color.GREEN)} {site}: {color.WHITE + url}"
                         )
                     else:
                         print(
-                            f"{BEFORE + current_time_hour() + AFTER} {GEN_INVALID} {site}:{white} Not Found"
+                            f"{Pre("x")} {site}:{color.WHITE} Not Found"
                         )
 
                 else:
                     print(
-                        f"{BEFORE + current_time_hour() + AFTER} {GEN_INVALID} {site}:{white} Not Found"
+                        f"{Pre("x")} {site}:{color.WHITE} Not Found"
                     )
 
             except Exception as e:
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ERROR} {site}: {white}Error: {e}"
+                    f"{Pre("x",color.RED)} {site}: {color.WHITE}Error: {e}"
                 )
         except:
             pass
 
     if number_found > 0:
-        print(f"\n{BEFORE + current_time_hour() + AFTER} {INFO} Total Found:{reset}")
+        print(f"\n{Pre("!")} Total Found:{color.RESET}")
         for site_and_url_found in sites_and_urls_found:
             time.sleep(0.5)
-            print(f"{BEFORE + current_time_hour() + AFTER} {ADD} {site_and_url_found}")
+            print(f"{Pre("+",color.RED)} {site_and_url_found}")
 
     print(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INFO} Total Website: {white}{number_site}{blue} Total Found: {white}{number_found}{blue}"
+        f"\n{Pre("!")} Total Website: {color.WHITE}{number_site}{color.BLUE} Total Found: {color.WHITE}{number_found}{color.BLUE}"
     )
     Continue()
 
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

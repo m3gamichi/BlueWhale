@@ -15,7 +15,7 @@ try:
     from urllib.parse import urljoin
     import re
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Website Url Scanner")
 
@@ -68,7 +68,7 @@ try:
         extracted_links = ExtractLinks(website_url, domain, tags)
         extracted_links += ExtractLinksFromScript(soup.find_all("script"), domain)
         for link in extracted_links:
-            print(f"{BEFORE + current_time_hour() + AFTER} {ADD} Url: {white}{link}")
+            print(f"{Pre("+",color.RED)} Url: {color.WHITE}{link}")
 
     def FindAllSecretUrls(website_url, domain):
         FindSecretUrls(website_url, domain)
@@ -85,24 +85,23 @@ try:
                 except:
                     pass
 
-    Slow(scan_banner)
+    print(scan_banner)
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {INFO} Selected User-Agent: {white + user_agent}"
+        f"{Pre("!")} Selected User-Agent: {color.WHITE + user_agent}"
     )
     website_url = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Website Url -> {reset}"
+        f"{Pre(">")} Website Url -> {color.RESET}"
     )
-    Censored(website_url)
     if "https://" not in website_url and "http://" not in website_url:
         website_url = "https://" + website_url
     domain = re.sub(r"^https?://", "", website_url).split("/")[0]
     print(
         f"""
- {BEFORE}01{AFTER}{white} Only Url
- {BEFORE}02{AFTER}{white} All Website
+ {BEFORE}01{AFTER}{color.WHITE} Only Url
+ {BEFORE}02{AFTER}{color.WHITE} All Website
     """
     )
-    choice = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Choice -> {reset}")
+    choice = input(f"{Pre(">")} Choice -> {color.RESET}")
     if choice in ["1", "01"]:
         FindSecretUrls(website_url, domain)
     elif choice in ["2", "02"]:
@@ -110,4 +109,4 @@ try:
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

@@ -12,14 +12,14 @@ from configs.config import *
 try:
     import requests
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Discord Server Info")
 
 try:
-    Slow(discord_banner)
+    print(discord_banner)
     invite = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Server Invitation -> {reset}"
+        f"{Pre(">")} Server Invitation -> {color.RESET}"
     )
     try:
         invite_code = invite.split("/")[-1]
@@ -65,47 +65,47 @@ try:
         channel_type = channel_info.get("type", "None")
         channel_name = channel_info.get("name", "None")
     else:
-        ErrorUrl()
+        General_Error("UrlError")
 
     print(
-        f"""{blue}
+        f"""{color.BLUE}
     Invitation Information:
-    {INFO_ADD} Invitation         : {white}{invite}{blue}
-    {INFO_ADD} Type               : {white}{type_value}{blue}
-    {INFO_ADD} Code               : {white}{code_value}{blue}
-    {INFO_ADD} Expired            : {white}{expires_at}{blue}
-    {INFO_ADD} Server ID          : {white}{server_id}{blue}
-    {INFO_ADD} Server Name        : {white}{server_name}{blue}
-    {INFO_ADD} Channel ID         : {white}{channel_id}{blue}
-    {INFO_ADD} Channel Name       : {white}{channel_name}{blue}
-    {INFO_ADD} Channel Type       : {white}{channel_type}{blue}
-    {INFO_ADD} Server Description : {white}{server_descritpion}{blue}
-    {INFO_ADD} Server Icon        : {white}{server_icon}{blue}
-    {INFO_ADD} Server Features    : {white}{server_features}{blue}
-    {INFO_ADD} Server NSFW Level  : {white}{server_nsfw_level}{blue}
-    {INFO_ADD} Server NSFW        : {white}{server_nsfw}{blue}
-    {INFO_ADD} Flags              : {white}{flags}{blue}
-    {INFO_ADD} Server Verification Level         : {white}{server_verification_level}{blue}
-    {INFO_ADD} Server Premium Subscription Count : {white}{server_premium_subscription_count}{blue}
+    {Pre("+",color.BLUE)} Invitation         : {color.WHITE}{invite}{color.BLUE}
+    {Pre("+",color.BLUE)} Type               : {color.WHITE}{type_value}{color.BLUE}
+    {Pre("+",color.BLUE)} Code               : {color.WHITE}{code_value}{color.BLUE}
+    {Pre("+",color.BLUE)} Expired            : {color.WHITE}{expires_at}{color.BLUE}
+    {Pre("+",color.BLUE)} Server ID          : {color.WHITE}{server_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Name        : {color.WHITE}{server_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Channel ID         : {color.WHITE}{channel_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Channel Name       : {color.WHITE}{channel_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Channel Type       : {color.WHITE}{channel_type}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Description : {color.WHITE}{server_descritpion}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Icon        : {color.WHITE}{server_icon}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Features    : {color.WHITE}{server_features}{color.BLUE}
+    {Pre("+",color.BLUE)} Server NSFW Level  : {color.WHITE}{server_nsfw_level}{color.BLUE}
+    {Pre("+",color.BLUE)} Server NSFW        : {color.WHITE}{server_nsfw}{color.BLUE}
+    {Pre("+",color.BLUE)} Flags              : {color.WHITE}{flags}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Verification Level         : {color.WHITE}{server_verification_level}{color.BLUE}
+    {Pre("+",color.BLUE)} Server Premium Subscription Count : {color.WHITE}{server_premium_subscription_count}{color.BLUE}
 """
     )
 
     if inviter_info:
         print(
-            f"""    {blue}Inviter Information:
-    {INFO_ADD} ID            : {white}{inviter_id}{blue}
-    {INFO_ADD} Username      : {white}{inviter_username}{blue}
-    {INFO_ADD} Global Name   : {white}{inviter_global_name}{blue}
-    {INFO_ADD} Avatar        : {white}{inviter_avatar}{blue}
-    {INFO_ADD} Discriminator : {white}{inviter_discriminator}{blue}
-    {INFO_ADD} Public Flags  : {white}{inviter_public_flags}{blue}
-    {INFO_ADD} Flags         : {white}{inviter_flags}{blue}
-    {INFO_ADD} Banner        : {white}{inviter_banner}{blue}
-    {INFO_ADD} Accent Color  : {white}{inviter_accent_color}{blue}
-    {INFO_ADD} Banner Color  : {white}{inviter_banner_color}{blue}
+            f"""    {color.BLUE}Inviter Information:
+    {Pre("+",color.BLUE)} ID            : {color.WHITE}{inviter_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Username      : {color.WHITE}{inviter_username}{color.BLUE}
+    {Pre("+",color.BLUE)} Global Name   : {color.WHITE}{inviter_global_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar        : {color.WHITE}{inviter_avatar}{color.BLUE}
+    {Pre("+",color.BLUE)} Discriminator : {color.WHITE}{inviter_discriminator}{color.BLUE}
+    {Pre("+",color.BLUE)} Public Flags  : {color.WHITE}{inviter_public_flags}{color.BLUE}
+    {Pre("+",color.BLUE)} Flags         : {color.WHITE}{inviter_flags}{color.BLUE}
+    {Pre("+",color.BLUE)} Banner        : {color.WHITE}{inviter_banner}{color.BLUE}
+    {Pre("+",color.BLUE)} Accent Color  : {color.WHITE}{inviter_accent_color}{color.BLUE}
+    {Pre("+",color.BLUE)} Banner Color  : {color.WHITE}{inviter_banner_color}{color.BLUE}
     """
         )
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

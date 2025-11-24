@@ -25,20 +25,20 @@ except Exception as e:
     )
     input(f"Error: {e}")
 
-#tool_path = os.path.dirname(os.path.abspath(__file__))
+tool_path = os.path.dirname(os.path.abspath(__file__))
+tool_path = os.path.dirname(tool_path)
+
+scripts_path = os.path.join(tool_path, "scripts")
 
 
-#color_webhook = 0xA80505
-#username_webhook = name_tool
-#avatar_webhook = "https://media.discordapp.net/attachments/1369051349106430004/1369054652213231687/RedTiger-Logo-1-Large.png?ex=6821b740&is=682065c0&hm=fb74ee5ac9239dd15605a36bfde4da265ee788fe83b1938b0fc3b1dd6ffa8871&=&format=webp&quality=lossless&width=1032&height=1032"
 
 color = colorama.Fore
-reset = color.RESET
-white = color.WHITE
-blue = color.BLUE
-red = color.RED
-green = color.GREEN
-yellow = color.YELLOW
+#reset = color.RESET
+#white = color.WHITE
+#blue = color.BLUE
+#red = color.RED
+#green = color.GREEN
+#yellow = color.YELLOW
 
 
 if sys.platform.startswith("win") or os.name == "nt":
@@ -55,24 +55,28 @@ def current_time_day_hour():
 def current_time_hour():
     return datetime.datetime.now().strftime("%H:%M:%S")
 
+#--- DEPRECATED
+BEFORE = f"{color.BLUE}[{color.WHITE}"
+AFTER = f"{color.BLUE}]"
 
-BEFORE = f"{blue}[{white}"
-AFTER = f"{blue}]"
+#BEFORE_GREEN = f"{green}[{color.WHITE}"
+#AFTER_GREEN = f"{green}]"
 
-BEFORE_GREEN = f"{green}[{white}"
-AFTER_GREEN = f"{green}]"
+#INPUT = f"{BEFORE}>{AFTER} |"
+#INFO  = f"{BEFORE}!{AFTER} |"
+#ERROR = f"{BEFORE}x{AFTER} |"
+#ADD   = f"{BEFORE}+{AFTER} |"
+#WAIT  = f"{BEFORE}~{AFTER} |"
+#NOTE  = f"{BEFORE}NOTE{AFTER} |"
 
-INPUT = f"{BEFORE}>{AFTER} |"
-INFO = f"{BEFORE}!{AFTER} |"
-ERROR = f"{BEFORE}x{AFTER} |"
-ADD = f"{BEFORE}+{AFTER} |"
-WAIT = f"{BEFORE}~{AFTER} |"
-NOTE = f"{BEFORE}NOTE{AFTER} |"
+#GEN_VALID = f"{BEFORE_GREEN}+{AFTER_GREEN} |"
+#GEN_INVALID = f"{BEFORE}x{AFTER} |"
 
-GEN_VALID = f"{BEFORE_GREEN}+{AFTER_GREEN} |"
-GEN_INVALID = f"{BEFORE}x{AFTER} |"
+#INFO_ADD = f"{color.WHITE}[{color.BLUE}+{color.WHITE}]{color.BLUE}"
+#---
 
-INFO_ADD = f"{white}[{blue}+{white}]{blue}"
+def Pre(string, col=color.BLUE):
+    return f"{col}[{color.RESET+current_time_hour()+col}] [{color.RESET+string+col}] | {color.RESET}"
 
 def Title(title):
     if os_name == "Windows":
@@ -88,95 +92,49 @@ def Clear():
         os.system("clear")
 
 
-def Slow(text):
-    delay = 0.03
-    lines = text.split("\n")
-    for line in lines:
-        print(line)
-        time.sleep(delay)
-
-
 def Continue():
     input(
-        f"{BEFORE + current_time_hour() + AFTER} {INFO} Press to continue -> " + reset
+        f"{Pre("!")} Press to continue -> " + color.RESET
     )
 
 
-def Error(e):
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Error: {white}{e}", reset)
-    Continue()
+ERROR_MESSAGES = {
+    KeyError: "dict key not found!",
+    ValueError: "invalid value!",
+    ZeroDivisionError: "Division by zero!",
+    FileNotFoundError: "Die Datei wurde nicht gefunden!",
+    ModuleNotFoundError: f"Modules of the python library required for {tool_name} are not installed, make sure you have correctly installed python and have launched the `setup.py` file which will install all the necessary modules.",
+
+    # Custom Errors
+    "ChoiceError": "Invalid Choice !",
+    "IdError": "Invalid ID !",
+    "UrlError": "Invalid URL !",
+    "ResponseError": "Invalid Response !", # not used on any tool, deprecated
+    "EdgeError": "Edge not installed or driver not up to date !", # not used on any tool, deprecated
+    "TokenError": "Invalid Token !",
+    "NumberError": "Invalid Number !",
+    "WebhookError": "Invalid Webhook !",
+    "CookieError": "Invalid Cookie !", # not used on any tool, deprecated
+    "UsernameError": "Invalid Username !",
+    "PlatformError": "Unsupported Platform !", 
+}
 
 
-# remove this fucking useless functions...
+def General_Error(e):
+    """Zentrale Fehlerausgabe, egal ob Exception oder Custom-String."""
+    if isinstance(e, Exception):
+        msg = ERROR_MESSAGES.get(type(e), f"Unknown Error: {e}")
+    elif isinstance(e, str):
+        msg = ERROR_MESSAGES.get(e, f"Unknown Custom Error: {e}")
+    else:
+        msg = f"Unknown Error Type: {e}"
 
-
-def ErrorChoice():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Choice !", reset)
-    time.sleep(3)
-
-
-def ErrorId():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid ID !", reset)
-    time.sleep(3)
-
-
-def ErrorUrl():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid URL !", reset)
-    time.sleep(3)
-
-
-def ErrorResponse():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Response !", reset)
-    time.sleep(3)
-
-
-def ErrorEdge():
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {ERROR} Edge not installed or driver not up to date !",
-        reset,
-    )
-    time.sleep(3)
-
-
-def ErrorToken():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Token !", reset)
-    time.sleep(3)
-
-
-def ErrorNumber():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Number !", reset)
-    time.sleep(3)
-
-
-def ErrorWebhook():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Webhook !", reset)
-    time.sleep(3)
-
-
-def ErrorCookie():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Cookie !", reset)
-    time.sleep(3)
-
-
-def ErrorUsername():
-    print(f"{BEFORE + current_time_hour() + AFTER} {ERROR} Invalid Username !", reset)
-    time.sleep(3)
-
-
-def ErrorPlateform():
-    print(
-        f"{BEFORE + current_time_hour() + AFTER} {ERROR} Unsupported Platform !", reset
-    )
-    time.sleep(3)
-
-
-def ErrorModule(e):
-    print(
-        f"{BEFORE + current_time_hour() + AFTER} {ERROR} Error Module: {white}{e}",
-        reset,
+        f"{Pre("x",color.RED)} {msg}\n",
+        " " * 9,
+        f"{ERROR} {color.WHITE}{e}", color.RESET,
     )
     Continue()
-
 
 
 def ChoiceUserAgent():
@@ -204,81 +162,6 @@ def CheckWebhook(webhook):
         return None
 
 
-def Choice1TokenDiscord():
-    def CheckToken(token_number, token):
-        response = requests.get(
-            "https://discord.com/api/v8/users/@me",
-            headers={"Authorization": token, "Content-Type": "application/json"},
-        )
-
-        if response.status_code == 200:
-            user = requests.get(
-                "https://discord.com/api/v8/users/@me", headers={"Authorization": token}
-            ).json()
-            username_discord = user["username"]
-            token_sensur = token[:-25] + "." * 3
-            print(
-                f" {BEFORE}{token_number}{AFTER} -> {blue}Status: {white}Valid{blue} | User: {white}{username_discord}{blue} | Token: {white}{token_sensur}"
-            )
-        else:
-            print(
-                f" {BEFORE}{token_number}{AFTER} -> {blue}Status: {white}Invalid{blue} | {blue}Token: {white}{token}"
-            )
-
-    file_token_discord_relative = "\\2-Input\\TokenDisc\\TokenDisc.txt"
-    file_token_discord = os.path.join(
-        tool_path, "2-Input", "TokenDisc", "TokenDisc.txt"
-    )
-
-    tokens = {}
-    token_discord_number = 0
-
-    with open(file_token_discord, "r") as file_token:
-        print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} Token Discord ({white}{file_token_discord_relative}{blue}):\n"
-        )
-        for line in file_token:
-            if not line.strip() or line.isspace():
-                continue
-
-            token_discord_number += 1
-            modified_token = line.strip()
-            tokens[token_discord_number] = modified_token
-            CheckToken(token_discord_number, modified_token)
-
-    if not tokens:
-        print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} No Token Discord in file: {white}{file_token_discord_relative}{blue} Please add tokens to the file."
-        )
-        Continue()
-
-        return None
-
-    try:
-        selected_token_number = int(
-            input(
-                f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Token Number -> {reset}"
-            )
-        )
-    except:
-        ErrorChoice()
-
-    selected_token = tokens.get(selected_token_number)
-    if selected_token:
-        r = requests.get(
-            "https://discord.com/api/v8/users/@me",
-            headers={
-                "Authorization": selected_token,
-                "Content-Type": "application/json",
-            },
-        )
-        if r.status_code == 200:
-            pass
-        else:
-            ErrorToken()
-    else:
-        ErrorChoice()
-    return selected_token
 
 
 

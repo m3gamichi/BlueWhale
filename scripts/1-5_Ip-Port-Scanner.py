@@ -13,7 +13,7 @@ try:
     import socket
     import concurrent.futures
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Ip Port Scanner")
 
@@ -50,7 +50,7 @@ try:
                     if result == 0:
                         protocol = IdentifyProtocol(ip, port)
                         print(
-                            f"{BEFORE + current_time_hour() + AFTER} {ADD} Port: {white}{port}{blue} Status: {white}Open{blue} Protocol: {white}{protocol}{blue}"
+                            f"{Pre("+",color.RED)} Port: {color.WHITE}{port}{color.BLUE} Status: {color.WHITE}Open{color.BLUE} Protocol: {color.WHITE}{protocol}{color.BLUE}"
                         )
             except Exception:
                 pass
@@ -83,11 +83,11 @@ try:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             executor.map(lambda port: ScanPort(ip, port), range(1, 65536))
 
-    Slow(scan_banner)
-    ip = input(f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Ip -> {reset}")
-    print(f"{BEFORE + current_time_hour() + AFTER} {WAIT} Scanning..")
+    print(scan_banner)
+    ip = input(f"\n{Pre(">")} Ip -> {color.RESET}")
+    print(f"{Pre("~")} Scanning..")
     PortScanner(ip)
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

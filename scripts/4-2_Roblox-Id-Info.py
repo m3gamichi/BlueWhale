@@ -12,7 +12,7 @@ from configs.config import *
 try:
     import requests
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 
 Title("Roblox User Info")
@@ -22,13 +22,13 @@ try:
     headers = {"User-Agent": user_agent}
 
     print(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INFO} Selected User-Agent: {white + user_agent}"
+        f"\n{Pre("!")} Selected User-Agent: {color.WHITE + user_agent}"
     )
     user_id = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} ID -> {color.RESET}"
+        f"{Pre(">")} ID -> {color.RESET}"
     )
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
     try:
 
@@ -48,19 +48,19 @@ try:
 
         print(
             f"""
-    {INFO_ADD} Username       : {white}{username}{blue}
-    {INFO_ADD} Id             : {white}{userid}{blue}
-    {INFO_ADD} Display Name   : {white}{display_name}{blue}
-    {INFO_ADD} Description    : {white}{description}{blue}
-    {INFO_ADD} Created        : {white}{created_at}{blue}
-    {INFO_ADD} Banned         : {white}{is_banned}{blue}
-    {INFO_ADD} External Name  : {white}{external_app_display_name}{blue}
-    {INFO_ADD} Verified Badge : {white}{has_verified_badge}{blue}
+    {Pre("+",color.BLUE)} Username       : {color.WHITE}{username}{color.BLUE}
+    {Pre("+",color.BLUE)} Id             : {color.WHITE}{userid}{color.BLUE}
+    {Pre("+",color.BLUE)} Display Name   : {color.WHITE}{display_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Description    : {color.WHITE}{description}{color.BLUE}
+    {Pre("+",color.BLUE)} Created        : {color.WHITE}{created_at}{color.BLUE}
+    {Pre("+",color.BLUE)} Banned         : {color.WHITE}{is_banned}{color.BLUE}
+    {Pre("+",color.BLUE)} External Name  : {color.WHITE}{external_app_display_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Verified Badge : {color.WHITE}{has_verified_badge}{color.BLUE}
     """
         )
         Continue()
 
     except:
-        ErrorId()
+        General_Error("IdError")
 except Exception as e:
-    Error(e)
+    General_Error(e)

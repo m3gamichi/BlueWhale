@@ -2,7 +2,7 @@ from configs.util import *
 from configs.term import *
 
 
-texta = f"thats a {red}test{reset} for formating"
+texta = f"thats a {color.RED}test{color.RESET} for formating"
 
 print("#>  text_a no formating: ",texta)
 print("#>  text_a    formating: ",StyleText(texta),"\n\n")
@@ -10,7 +10,7 @@ print("#>  text_a    formating: ",StyleText(texta),"\n\n")
 
 textb = f"""
 thats a 
-{red}test{reset}
+{color.RED}test{color.RESET}
 for formating"""
 
 print("#>  text_b no formating: ",textb)

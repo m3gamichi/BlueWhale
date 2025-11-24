@@ -13,15 +13,92 @@ try:
     import requests
     from datetime import datetime, timezone
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
+
+def Choice1TokenDiscord():
+    def CheckToken(token_number, token):
+        response = requests.get(
+            "https://discord.com/api/v8/users/@me",
+            headers={"Authorization": token, "Content-Type": "application/json"},
+        )
+
+        if response.status_code == 200:
+            user = requests.get(
+                "https://discord.com/api/v8/users/@me", headers={"Authorization": token}
+            ).json()
+            username_discord = user["username"]
+            token_sensur = token[:-25] + "." * 3
+            print(
+                f" {BEFORE}{token_number}{AFTER} -> {color.BLUE}Status: {color.WHITE}Valid{color.BLUE} | User: {color.WHITE}{username_discord}{color.BLUE} | Token: {color.WHITE}{token_sensur}"
+            )
+        else:
+            print(
+                f" {BEFORE}{token_number}{AFTER} -> {color.BLUE}Status: {color.WHITE}Invalid{color.BLUE} | {color.BLUE}Token: {color.WHITE}{token}"
+            )
+
+    file_token_discord_relative = "\\2-Input\\TokenDisc\\TokenDisc.txt"
+    file_token_discord = os.path.join(
+        tool_path, "2-Input", "TokenDisc", "TokenDisc.txt"
+    )
+
+    tokens = {}
+    token_discord_number = 0
+
+    with open(file_token_discord, "r") as file_token:
+        print(
+            f"{Pre("!")} Token Discord ({color.WHITE}{file_token_discord_relative}{color.BLUE}):\n"
+        )
+        for line in file_token:
+            if not line.strip() or line.isspace():
+                continue
+
+            token_discord_number += 1
+            modified_token = line.strip()
+            tokens[token_discord_number] = modified_token
+            CheckToken(token_discord_number, modified_token)
+
+    if not tokens:
+        print(
+            f"{Pre("!")} No Token Discord in file: {color.WHITE}{file_token_discord_relative}{color.BLUE} Please add tokens to the file."
+        )
+        Continue()
+
+        return None
+
+    try:
+        selected_token_number = int(
+            input(
+                f"\n{Pre(">")} Token Number -> {color.RESET}"
+            )
+        )
+    except:
+        General_Error("ChoiceError")
+
+    selected_token = tokens.get(selected_token_number)
+    if selected_token:
+        r = requests.get(
+            "https://discord.com/api/v8/users/@me",
+            headers={
+                "Authorization": selected_token,
+                "Content-Type": "application/json",
+            },
+        )
+        if r.status_code == 200:
+            pass
+        else:
+            General_Error("TokenError")
+    else:
+        General_Error("ChoiceError")
+    return selected_token
+
 
 Title("Discord Token Info")
 
 try:
-    Slow(discord_banner)
+    print(discord_banner)
     token_discord = Choice1TokenDiscord()
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
     try:
         api = requests.get(
@@ -216,43 +293,43 @@ try:
 
     except Exception as e:
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ERROR} Error when retrieving information: {white}{e}"
+            f"{Pre("x",color.RED)} Error when retrieving information: {color.WHITE}{e}"
         )
 
     print(
         f"""
-    {INFO_ADD} Status       : {white}{status}{blue}
-    {INFO_ADD} Token        : {white}{token_discord}{blue}
-    {INFO_ADD} Username     : {white}{username_discord}{blue}
-    {INFO_ADD} Display Name : {white}{display_name_discord}{blue}
-    {INFO_ADD} Id           : {white}{user_id_discord}{blue}
-    {INFO_ADD} Created      : {white}{created_at_discord}{blue}
-    {INFO_ADD} Country      : {white}{country_discord}{blue}
-    {INFO_ADD} Email        : {white}{email_discord}{blue}
-    {INFO_ADD} Verified     : {white}{email_verified_discord}{blue}
-    {INFO_ADD} Phone        : {white}{phone_discord}{blue}
-    {INFO_ADD} Nitro        : {white}{nitro_discord}{blue}
-    {INFO_ADD} Linked Users : {white}{linked_users_discord}{blue}
-    {INFO_ADD} Avatar Decor : {white}{avatar_decoration_discord}{blue}
-    {INFO_ADD} Avatar       : {white}{avatar_discord}{blue}
-    {INFO_ADD} Avatar URL   : {white}{avatar_url_discord}{blue}
-    {INFO_ADD} Accent Color : {white}{accent_color_discord}{blue}
-    {INFO_ADD} Banner       : {white}{banner_discord}{blue}
-    {INFO_ADD} Banner Color : {white}{banner_color_discord}{blue}
-    {INFO_ADD} Flags        : {white}{flags_discord}{blue}
-    {INFO_ADD} Public Flags : {white}{public_flags_discord}{blue}
-    {INFO_ADD} NSFW         : {white}{nsfw_discord}{blue}
-    {INFO_ADD} Multi-Factor Authentication : {white}{mfa_discord}{blue}
-    {INFO_ADD} Authenticator Type          : {white}{authenticator_types_discord}{blue}
-    {INFO_ADD} Billing      : {white}{payment_methods_discord}{blue}
-    {INFO_ADD} Gift Code    : {white}{gift_codes_discord}{blue}
-    {INFO_ADD} Guilds       : {white}{guild_count}{blue}
-    {INFO_ADD} Owner Guilds : {white}{owner_guild_count}{owner_guilds_names}{blue}
-    {INFO_ADD} Bio          : {white}{bio_discord}{blue}
-    {INFO_ADD} Friend       : {white}{friends_discord}{blue}
+    {Pre("+",color.BLUE)} Status       : {color.WHITE}{status}{color.BLUE}
+    {Pre("+",color.BLUE)} Token        : {color.WHITE}{token_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Username     : {color.WHITE}{username_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Display Name : {color.WHITE}{display_name_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Id           : {color.WHITE}{user_id_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Created      : {color.WHITE}{created_at_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Country      : {color.WHITE}{country_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Email        : {color.WHITE}{email_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Verified     : {color.WHITE}{email_verified_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Phone        : {color.WHITE}{phone_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Nitro        : {color.WHITE}{nitro_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Linked Users : {color.WHITE}{linked_users_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar Decor : {color.WHITE}{avatar_decoration_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar       : {color.WHITE}{avatar_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar URL   : {color.WHITE}{avatar_url_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Accent Color : {color.WHITE}{accent_color_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Banner       : {color.WHITE}{banner_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Banner Color : {color.WHITE}{banner_color_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Flags        : {color.WHITE}{flags_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Public Flags : {color.WHITE}{public_flags_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} NSFW         : {color.WHITE}{nsfw_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Multi-Factor Authentication : {color.WHITE}{mfa_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Authenticator Type          : {color.WHITE}{authenticator_types_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Billing      : {color.WHITE}{payment_methods_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Gift Code    : {color.WHITE}{gift_codes_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Guilds       : {color.WHITE}{guild_count}{color.BLUE}
+    {Pre("+",color.BLUE)} Owner Guilds : {color.WHITE}{owner_guild_count}{owner_guilds_names}{color.BLUE}
+    {Pre("+",color.BLUE)} Bio          : {color.WHITE}{bio_discord}{color.BLUE}
+    {Pre("+",color.BLUE)} Friend       : {color.WHITE}{friends_discord}{color.BLUE}
     """
     )
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

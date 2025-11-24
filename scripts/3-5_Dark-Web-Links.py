@@ -48,8 +48,8 @@ try:
         return display_link
 
     formatted_links = format_links(links)
-    Slow(tor_banner + StyleText(formatted_links, True))
+    print(tor_banner + StyleText(formatted_links, True))
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

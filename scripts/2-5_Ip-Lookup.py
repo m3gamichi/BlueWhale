@@ -12,14 +12,14 @@ from configs.config import *
 try:
     import requests
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Ip Lookup")
 
 try:
-    Slow(map_banner)
-    ip = input(f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Ip -> {reset}")
-    print(f"{BEFORE + current_time_hour() + AFTER} {WAIT} Search for information..")
+    print(map_banner)
+    ip = input(f"\n{Pre(">")} Ip -> {color.RESET}")
+    print(f"{Pre("~")} Search for information..")
 
     try:
         response = requests.get(f"https://{website}/api/ip/ip={ip}")
@@ -58,23 +58,23 @@ try:
         org = api.get("org", "None")
         as_host = api.get("as", "None")
 
-    Slow(
+    print(
         f"""    
-    {INFO_ADD} Status    : {white}{status}{blue}
-    {INFO_ADD} Country   : {white}{country} ({country_code}){blue}
-    {INFO_ADD} Region    : {white}{region} ({region_code}){blue}
-    {INFO_ADD} Zip       : {white}{zip}{blue}
-    {INFO_ADD} City      : {white}{city}{blue}
-    {INFO_ADD} Latitude  : {white}{latitude}{blue}
-    {INFO_ADD} Longitude : {white}{longitude}{blue}
-    {INFO_ADD} Timezone  : {white}{timezone}{blue}
-    {INFO_ADD} Isp       : {white}{isp}{blue}
-    {INFO_ADD} Org       : {white}{org}{blue}
-    {INFO_ADD} As        : {white}{as_host}{blue}{reset}
+    {Pre("+",color.BLUE)} Status    : {color.WHITE}{status}{color.BLUE}
+    {Pre("+",color.BLUE)} Country   : {color.WHITE}{country} ({country_code}){color.BLUE}
+    {Pre("+",color.BLUE)} Region    : {color.WHITE}{region} ({region_code}){color.BLUE}
+    {Pre("+",color.BLUE)} Zip       : {color.WHITE}{zip}{color.BLUE}
+    {Pre("+",color.BLUE)} City      : {color.WHITE}{city}{color.BLUE}
+    {Pre("+",color.BLUE)} Latitude  : {color.WHITE}{latitude}{color.BLUE}
+    {Pre("+",color.BLUE)} Longitude : {color.WHITE}{longitude}{color.BLUE}
+    {Pre("+",color.BLUE)} Timezone  : {color.WHITE}{timezone}{color.BLUE}
+    {Pre("+",color.BLUE)} Isp       : {color.WHITE}{isp}{color.BLUE}
+    {Pre("+",color.BLUE)} Org       : {color.WHITE}{org}{color.BLUE}
+    {Pre("+",color.BLUE)} As        : {color.WHITE}{as_host}{color.BLUE}{color.RESET}
     """
     )
 
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

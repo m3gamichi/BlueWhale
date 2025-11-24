@@ -14,7 +14,7 @@ try:
     import requests
     import re
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Email Lookup")
 
@@ -75,11 +75,11 @@ try:
 
         return info, domain_all, domain, tld, name
 
-    email = input(f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Email -> {reset}")
-    Censored(email)
+    email = input(f"\n{Pre(">")} Email -> {color.RESET}")
+
 
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
     info, domain_all, domain, tld, name = get_email_info(email)
 
@@ -113,20 +113,20 @@ try:
 
     print(
         f"""
-    {INFO_ADD} Email      : {white}{email}{blue}
-    {INFO_ADD} Name       : {white}{name}{blue}
-    {INFO_ADD} Domain     : {white}{domain}{blue}
-    {INFO_ADD} Tld        : {white}{tld}{blue}
-    {INFO_ADD} Domain All : {white}{domain_all}{blue}
-    {INFO_ADD} Servers    : {white}{mx_servers}{blue}
-    {INFO_ADD} Spf        : {white}{spf_records}{blue}
-    {INFO_ADD} Dmarc      : {white}{dmarc_records}{blue}
-    {INFO_ADD} Workspace  : {white}{google_workspace}{blue}
-    {INFO_ADD} Mailgun    : {white}{mailgun_validation}{blue}
+    {Pre("+",color.BLUE)} Email      : {color.WHITE}{email}{color.BLUE}
+    {Pre("+",color.BLUE)} Name       : {color.WHITE}{name}{color.BLUE}
+    {Pre("+",color.BLUE)} Domain     : {color.WHITE}{domain}{color.BLUE}
+    {Pre("+",color.BLUE)} Tld        : {color.WHITE}{tld}{color.BLUE}
+    {Pre("+",color.BLUE)} Domain All : {color.WHITE}{domain_all}{color.BLUE}
+    {Pre("+",color.BLUE)} Servers    : {color.WHITE}{mx_servers}{color.BLUE}
+    {Pre("+",color.BLUE)} Spf        : {color.WHITE}{spf_records}{color.BLUE}
+    {Pre("+",color.BLUE)} Dmarc      : {color.WHITE}{dmarc_records}{color.BLUE}
+    {Pre("+",color.BLUE)} Workspace  : {color.WHITE}{google_workspace}{color.BLUE}
+    {Pre("+",color.BLUE)} Mailgun    : {color.WHITE}{mailgun_validation}{color.BLUE}
     {color.RESET}"""
     )
 
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

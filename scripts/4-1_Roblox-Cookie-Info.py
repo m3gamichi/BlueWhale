@@ -13,7 +13,7 @@ try:
     import requests
     import json
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Roblox Cookie Info")
 
@@ -22,11 +22,11 @@ try:
     headers = {"User-Agent": user_agent}
 
     print(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INFO} Selected User-Agent: {white + user_agent}"
+        f"\n{Pre("!")} Selected User-Agent: {color.WHITE + user_agent}"
     )
-    cookie = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Cookie -> {white}")
+    cookie = input(f"{Pre(">")} Cookie -> {color.WHITE}")
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
     try:
         response = requests.get(
@@ -53,16 +53,16 @@ try:
 
     print(
         f"""
-    {INFO_ADD} Status        : {white}{status}{blue}
-    {INFO_ADD} Username      : {white}{username_roblox}{blue}
-    {INFO_ADD} Id            : {white}{user_id_roblox}{blue}
-    {INFO_ADD} Robux         : {white}{robux_roblox}{blue}
-    {INFO_ADD} Premium       : {white}{premium_roblox}{blue}
-    {INFO_ADD} Builders Club : {white}{builders_club_roblox}{blue}
-    {INFO_ADD} Avatar        : {white}{avatar_roblox}{blue}
+    {Pre("+",color.BLUE)} Status        : {color.WHITE}{status}{color.BLUE}
+    {Pre("+",color.BLUE)} Username      : {color.WHITE}{username_roblox}{color.BLUE}
+    {Pre("+",color.BLUE)} Id            : {color.WHITE}{user_id_roblox}{color.BLUE}
+    {Pre("+",color.BLUE)} Robux         : {color.WHITE}{robux_roblox}{color.BLUE}
+    {Pre("+",color.BLUE)} Premium       : {color.WHITE}{premium_roblox}{color.BLUE}
+    {Pre("+",color.BLUE)} Builders Club : {color.WHITE}{builders_club_roblox}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar        : {color.WHITE}{avatar_roblox}{color.BLUE}
     """
     )
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

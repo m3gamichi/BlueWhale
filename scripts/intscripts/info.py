@@ -8,30 +8,30 @@ try:
     import webbrowser
 
     print(
-        f"\n{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"\n{Pre("~")} Information Recovery..{color.RESET}"
     )
 
     w_str = ""
     for w in Websites:
         w_str += f"   - {w}\n"
-    Slow(
+    print(
         f"""
-    {INFO_ADD} Tool Name:  {white}{tool_name}
-    {INFO_ADD} Tool Type:  {white}{type_tool}
-    {INFO_ADD} Version  :  {white}{version}
-    {INFO_ADD} Platform :  {white}{platform}
-    {INFO_ADD} Github   :  {white}{github_url}
-    {INFO_ADD} License  :  {white}{license}
+    {Pre("+",color.BLUE)} Tool Name:  {color.WHITE}{tool_name}
+    {Pre("+",color.BLUE)} Tool Type:  {color.WHITE}{type_tool}
+    {Pre("+",color.BLUE)} Version  :  {color.WHITE}{version}
+    {Pre("+",color.BLUE)} Platform :  {color.WHITE}{platform}
+    {Pre("+",color.BLUE)} Github   :  {color.WHITE}{github_url}
+    {Pre("+",color.BLUE)} License  :  {color.WHITE}{license}
 
-    {INFO_ADD} Main-Dev :  {white}{main_dev}
-    {INFO_ADD} creator  :  {white}{creator}
+    {Pre("+",color.BLUE)} Main-Dev :  {color.WHITE}{main_dev}
+    {Pre("+",color.BLUE)} creator  :  {color.WHITE}{creator}
     Websites:
     {w_str}
     """
     )
 
     license_read = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Open 'LICENSE' ? (y/n) -> {reset}"
+        f"{Pre(">")} Open 'LICENSE' ? (y/n) -> {color.RESET}"
     )
     if license_read in ["y", "Y", "Yes", "yes", "YES"]:
         if os_name == "Linux":
@@ -41,4 +41,4 @@ try:
 
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

@@ -15,30 +15,30 @@ try:
     import base64
     from hashlib import pbkdf2_hmac
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title(f"Password Encrypted")
 try:
-    Slow(
+    print(
         f"""{encrypted_banner}
- {BEFORE}01{AFTER}{white} BCRYPT
- {BEFORE}02{AFTER}{white} MD5
- {BEFORE}03{AFTER}{white} SHA-1
- {BEFORE}04{AFTER}{white} SHA-256
- {BEFORE}05{AFTER}{white} PBKDF2 (SHA-256)
- {BEFORE}06{AFTER}{white} Base64 Decode
+ {BEFORE}01{AFTER}{color.WHITE} BCRYPT
+ {BEFORE}02{AFTER}{color.WHITE} MD5
+ {BEFORE}03{AFTER}{color.WHITE} SHA-1
+ {BEFORE}04{AFTER}{color.WHITE} SHA-256
+ {BEFORE}05{AFTER}{color.WHITE} PBKDF2 (SHA-256)
+ {BEFORE}06{AFTER}{color.WHITE} Base64 Decode
     """
     )
 
     choice = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Encryption Method -> {reset}"
+        f"{Pre(">")} Encryption Method -> {color.RESET}"
     )
 
     if choice not in ["1", "01", "2", "02", "3", "03", "4", "04", "5", "05", "6", "06"]:
-        ErrorChoice()
+        General_Error("ChoiceError")
 
     password = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Password to Encrypt -> {white}"
+        f"{Pre(">")} Password to Encrypt -> {color.WHITE}"
     )
 
     def EncryptPassword(choice, password):
@@ -59,17 +59,17 @@ try:
             return encrypt_methods.get(choice, lambda p: None)(password)
         except Exception as e:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ERROR} Error during encryption: {e}"
+                f"{Pre("x",color.RED)} Error during encryption: {e}"
             )
             return None
 
     encrypted_password = EncryptPassword(choice, password)
     if encrypted_password:
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ADD} Encrypted Password: {white}{encrypted_password}{reset}"
+            f"{Pre("+",color.RED)} Encrypted Password: {color.WHITE}{encrypted_password}{color.RESET}"
         )
         Continue()
 
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

@@ -12,7 +12,7 @@ from configs.config import *
 try:
     import requests
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 
 Title("Discord Webhook Info")
@@ -37,13 +37,13 @@ try:
 
         print(
             f"""
-    {INFO_ADD} ID         : {white}{webhook_id}{blue}
-    {INFO_ADD} Token      : {white}{webhook_token}{blue}
-    {INFO_ADD} Name       : {white}{webhook_name}{blue}
-    {INFO_ADD} Avatar     : {white}{webhook_avatar}{blue}
-    {INFO_ADD} Type       : {white}{webhook_type}{blue}
-    {INFO_ADD} Channel ID : {white}{channel_id}{blue}
-    {INFO_ADD} Server ID  : {white}{guild_id}{blue}
+    {Pre("+",color.BLUE)} ID         : {color.WHITE}{webhook_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Token      : {color.WHITE}{webhook_token}{color.BLUE}
+    {Pre("+",color.BLUE)} Name       : {color.WHITE}{webhook_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar     : {color.WHITE}{webhook_avatar}{color.BLUE}
+    {Pre("+",color.BLUE)} Type       : {color.WHITE}{webhook_type}{color.BLUE}
+    {Pre("+",color.BLUE)} Channel ID : {color.WHITE}{channel_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Server ID  : {color.WHITE}{guild_id}{color.BLUE}
     """
         )
 
@@ -62,26 +62,26 @@ try:
 
             print(
                 f"""
-    {blue}User information associated with the Webhook:
-    {INFO_ADD} ID          : {white}{user_id}{blue}
-    {INFO_ADD} Name        : {white}{username}{blue}
-    {INFO_ADD} DisplayName : {white}{display_name}{blue}
-    {INFO_ADD} Number      : {white}{discriminator}{blue}
-    {INFO_ADD} Avatar      : {white}{user_avatar}{blue}
-    {INFO_ADD} Flags       : {white}{user_flags} Publique: {user_flags}{blue}
-    {INFO_ADD} Color       : {white}{accent_color}{blue}
-    {INFO_ADD} Decoration  : {white}{avatar_decoration}{blue}
-    {INFO_ADD} Banner      : {white}{banner_color}{blue}
+    {color.BLUE}User information associated with the Webhook:
+    {Pre("+",color.BLUE)} ID          : {color.WHITE}{user_id}{color.BLUE}
+    {Pre("+",color.BLUE)} Name        : {color.WHITE}{username}{color.BLUE}
+    {Pre("+",color.BLUE)} DisplayName : {color.WHITE}{display_name}{color.BLUE}
+    {Pre("+",color.BLUE)} Number      : {color.WHITE}{discriminator}{color.BLUE}
+    {Pre("+",color.BLUE)} Avatar      : {color.WHITE}{user_avatar}{color.BLUE}
+    {Pre("+",color.BLUE)} Flags       : {color.WHITE}{user_flags} Publique: {user_flags}{color.BLUE}
+    {Pre("+",color.BLUE)} Color       : {color.WHITE}{accent_color}{color.BLUE}
+    {Pre("+",color.BLUE)} Decoration  : {color.WHITE}{avatar_decoration}{color.BLUE}
+    {Pre("+",color.BLUE)} Banner      : {color.WHITE}{banner_color}{color.BLUE}
     """
             )
 
     webhook_url = input(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Webhook URL -> {color.RESET}"
+        f"\n{Pre(">")} Webhook URL -> {color.RESET}"
     )
     if CheckWebhook(webhook_url) == False:
-        ErrorWebhook()
+        General_Error("WebhookError")
     info_webhook(webhook_url)
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

@@ -14,85 +14,167 @@ import os
 import sys
 import re
 import webbrowser
+import subprocess
+
 try:
     import requests
-except:
-    ErrorModule(e)
+except Exception as e:
+    General_Error(e)
+    exit()
+
 
 tool_path = os.path.dirname(os.path.abspath(__file__))
 scripts_path = os.path.join(tool_path, "scripts")
 
-line_len = os.get_terminal_size().columns#120
-t_len = (line_len//3)-2
-# tab len
+line_len = os.get_terminal_size().columns
+t_len = (line_len // 3) - 2
 
 # activating venv
-if os_name == "Linux":venv_python = os.path.join(tool_path, ".venv", "bin", "python3")
-else:venv_python = os.path.join(tool_path, ".venv", "Scripts", "python.exe")
-if not os.path.exists(venv_python):print("#>  Please run the setup.py")
-elif sys.executable != venv_python:os.execv(venv_python, [venv_python] + sys.argv)
+if os_name == "Linux":
+    venv_python = os.path.join(tool_path, ".venv", "bin", "python3")
+else:
+    venv_python = os.path.join(tool_path, ".venv", "Scripts", "python.exe")
 
-#variables
+if not os.path.exists(venv_python):
+    print("#>  Please run the setup.py")
+elif sys.executable != venv_python:
+    os.execv(venv_python, [venv_python] + sys.argv)
 
-options = [
-    [ # Menu 0
-        [
-            (0,"venv Test ($ env)"),
-            (0,"formating test ($ text)"),
-        ],
-        [
-            (1, "Website-Vulnerability-Scanner"),
-            (2, "Website-Info-Scanner"),
-            (3, "Website-Url-Scanner"),
-            (4, "Ip-Scanner"),
-            (5, "Ip-Port-Scanner"),
-            (6, "Ip-Pinger"),
-        ],
-        [
-            (11, "Get-Image-Exif"),
-            (12, "Username-Tracker"),
-            (13, "Email-Lookup"),
-            (14, "Phone-Number-Lookup"),
-            (15, "Ip-Lookup"),
-        ],
-    ],
-    [ # Menu 1
-        [
-            (21, "Password-Zip-Cracked-Attack"),
-            (22, "Password-Hash-Decrypted-Attack"),
-            (23, "Password-Hash-Encrypted"),
-            (24, "Search-In-DataBase"),
-            (25, "Dark-Web-Links"),
-            (26, "Ip-Generator"),
-        ],
-        [
-            (31, "Roblox-Cookie-Info"),
-            (32, "Roblox-Id-Info"),
-            (32, "Roblox-User-Info"),
-        ],
-        [
-            (41, "Discord-Server-Info"),
-            (42, "Discord-Webhook-Info"),
-            (42, "Discord-Token-Info"),
-        ],
-    ],
+# internal tools
+int_h = [
+    (0, "venv Test ($ env)"),
+    (0, "formating test ($ text)"),
 ]
-men_h_txt = [[" Intern "," Network Scanner "," Osint "],[" Utilities "," Roblox "," Discord "]]
 
-def get_tool_script_name(id):
-    for menu in options:
-        for tab in menu:
-            for function in tab:
-                if id == function[0]:
-                    return function[1]
-    return None  # Falls nichts gefunden wird
+# ---------------------------------------------------------------------
+# BUILD OPTIONS (LIST-BASED)
+# ---------------------------------------------------------------------
+def build_options(scripts_path):
+    # interne Tools hartkodiert
+    internal = [
+        (0, "venv Test ($ env)"),
+        (0, "formating test ($ text)")
+    ]
 
-def StartScript(script_name,cwd=tool_path):
+    # Scripts sammeln
+    by_header = {}  # header -> [(funct,name),...]
+    for file in os.listdir(scripts_path):
+        full = os.path.join(scripts_path, file)
+        if not os.path.isfile(full):
+            continue
+        if "_" not in file or "-" not in file:
+            print(f"[WARN] invalid filename: {file}")
+            continue
+        try:
+            id_part, name = file.split("_", 1)
+            name = name.replace("-", " ")
+            name = name[:-3] if name.endswith(".py") else name
+            header, funct = id_part.split("-")
+            header, funct = int(header), int(funct)
+        except:
+            print(f"[WARN] not parsable: {file}")
+            continue
+
+        if header not in by_header:
+            by_header[header] = []
+        by_header[header].append((funct, name))
+
+    # Header sortieren
+    ordered_headers = sorted(by_header.keys())
+
+    # Page-Struktur aufbauen (3 Tabs pro Page)
+    pages = []
+
+    # Page 0 vorbereiten (Internal auf Tab 0)
+    page0 = [internal, [], []]
+    current_page = page0
+    tab_index = 1  # Tab 0 belegt durch internal
+
+    for header in ordered_headers:
+        if header == 0:
+            continue  # interne bereits drin
+
+        # Funktionen innerhalb des Tabs nach funct sortieren
+        by_header[header].sort(key=lambda x: x[0])
+
+        # wenn Tab voll → neue Page
+        if tab_index > 2:
+            pages.append(current_page)
+            current_page = [[], [], []]
+            tab_index = 0
+
+        # ganzen header-block in aktuellen Tab schieben
+        current_page[tab_index] = by_header[header]
+
+        tab_index += 1
+
+    # letzte Page anhängen
+    pages.append(current_page)
+
+    return pages
+
+
+
+# --- Aufruf ---
+scripts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts")
+options = build_options(scripts_path)
+
+# Debug
+import pprint
+pprint.pprint(options)
+
+
+#print(options); exit()
+
+# ---------------------------------------------------------------------
+# get_tool_script_name
+# ---------------------------------------------------------------------
+
+def get_tool_script_name(id: str):
+    try:
+        r_str, i_str = id.split("-")
+        r, i = int(r_str), int(i_str)
+    except:
+        return None
+
+    page_index = r // 3
+    tab_index = r % 3
+
+    if page_index >= len(options):
+        return None
+    page = options[page_index]
+    if tab_index >= len(page):
+        return None
+    tab = page[tab_index]
+
+    if i <= 0 or i > len(tab):
+        return None
+
+    funct, name = tab[i - 1]
+    if funct == 0:
+        return None
+
+    filename_name = name.replace(" ", "-")
+    filename = f"{r}-{i}_{filename_name}.py"
+    #print(filename)
+    return filename
+
+# ---------------------------------------------------------------------
+
+def StartScript(script_file=str, cwd=tool_path):
+    if script_file is None:
+        return
     env = os.environ.copy()
     env["PYTHONPATH"] = tool_path
-    command = [sys.executable, os.path.join(tool_path, "scripts", script_name + ".py")]
+    command = [sys.executable, os.path.join(tool_path, "scripts", script_file)]
     subprocess.run(command, env=env, cwd=cwd)
 
+
+men_h_txt = [
+    [" Intern ", " Network Scanner ", " Osint "],
+    [" Utilities ", " Games ", " Social Media "],
+    [" Common ", " Math "]
+]
 
 
 def menu_head_builder(menu_index):
@@ -107,7 +189,7 @@ def menu_head_builder(menu_index):
     rendered_tabs = []
     for cat in categorys:
         l = len(cat)
-        a, b, c = f"┌{'─'*l}┐", f"┤{cat}├", f"└{'─'*l}┘"
+        a, b, c = f"┌{'─' * l}┐", f"┤{cat}├", f"└{'─' * l}┘"
         blub = t_len - len(a)
         mod = blub % 2
         spacea, spaceb = (blub // 2) - 1, (blub // 2) + mod
@@ -128,14 +210,16 @@ def menu_head_builder(menu_index):
     outa = start_txt[0] + outa[txt_len:-txt_len] + end_txt[0]
     outb = start_txt[1] + outb[txt_len:-txt_len] + end_txt[1]
     outc = start_txt[2] + outc[txt_len:-txt_len] + end_txt[2]
-    return StyleText(" .\n" + outa + "\n" + outb + "\n" + outc,True)
+
+    return StyleText(" .\n" + outa + "\n" + outb + "\n" + outc, True)
+
 
 def menu_builder(menu_index):
     menu = "   "
     site_tabs = len(options[menu_index])
     biggest_tab_len = len(max(options[menu_index], key=len))
-    for i in range(biggest_tab_len):  # lines == option
-        for ti in range(site_tabs):  # tab index
+    for i in range(biggest_tab_len):
+        for ti in range(site_tabs):
             options_count = len(options[menu_index][ti])
             if not i >= options_count:
                 if i + 1 == options_count:
@@ -144,15 +228,15 @@ def menu_builder(menu_index):
                     sym = "├"
 
                 id, option_name = options[menu_index][ti][i]
+
                 if not id == 0:
-                    if id < 10:id_str = "0" + str(id)
-                    else:id_str = str(id)
-                else:id_str = ".."
-                    # └─ [..]
-                option_string = f"[{id_str}] {option_name}{" "*(t_len-8-len(option_name))}".replace(
-                    "-", " "
-                )
-                menu += f"{sym}─ {option_string}"
+                    id_str = str(ti + menu_index * 3) + "-" + str(id)
+                else:
+                    id_str = ".."
+
+                option_string = f"{sym}─ [{id_str}] {option_name}"
+                spaces = ' ' * (t_len - len(option_string))
+                menu += option_string + spaces
             else:
                 menu += "-".center(t_len)
         menu += "\n   "
@@ -160,84 +244,80 @@ def menu_builder(menu_index):
 
 
 # REDTIGER
-rt_detected = os.path.exists(os.path.join(scripts_path,"RedTiger-Tools"))
+rt_detected = os.path.exists(os.path.join(scripts_path, "RedTiger-Tools"))
 if rt_detected:
-    options[0][0].append((0,"RedTiger ($ rt)"))
-
+    options[0][0].append((0, "RedTiger ($ rt)"))
 
 # UPDATE
+v = ""
 try:
     new_version = re.search(r'version\s*=\s*"([^"]+)"', requests.get(config_url).text).group(1)
     if version != new_version:
-        options[0][0].append((0,"Update available! ($ up)"))
+        options[0][0].append((0, "Update available! ($ up)"))
         v = f"New Version: {version} -> {new_version}"
         Clear()
+    else:
+        v = version
 except:
     v = version
+
 
 menu_index = 0
 if __name__ == "__main__":
     while True:
-        Clear()
 
         Title(f"Menu {menu_index}")
         print(StyleText(CenterMultilineText(banner,line_len)))
         print(StyleText(CenterMultilineText("Version: "+v,line_len)))
         print(menu_head_builder(menu_index))
         print(menu_builder(menu_index))
+
         choice = input(
             StyleText(
                 f""" ┌──(user@{tool_name})─[~/{os_name}/Menu-{menu_index}]\n └─$ """,
                 True,
                 " └┌─()[]~",
             )
-            + reset
+            + color.RESET
         )
 
         if choice in ["N", "n", "NEXT", "Next", "next"]:
             menu_index = (menu_index + 1) % len(options)
         elif choice in ["B", "b", "BACK", "Back", "back"]:
             menu_index = (menu_index - 1) % len(options)
-        
+
         elif choice in ["Q", "q", "exit", "quit"]:
             exit()
 
-        elif choice.isdigit():
-            StartScript(get_tool_script_name(int(choice)))
-        
+        elif "-" in choice:
+            StartScript(get_tool_script_name(choice))
+
         elif choice == "rt":
             if rt_detected:
                 print(StyleText("Launching RedTiger..."))
-                # LAUNCH RT
-                StartScript(os.path.join("RedTiger-Tools", "Setup"),os.path.join(tool_path, "scripts", "RedTiger-Tools"))
+                StartScript(os.path.join(tool_path, "scripts", "RedTiger-Tools", "Setup.py"))
             else:
                 print(rt_error)
             Continue()
 
-
-        # Internal Scripts
-
         elif choice in ["I", "i", "INFO", "Info", "info"]:
-            StartScript(os.path.join("intscripts", "info"))
+            StartScript(os.path.join("intscripts", "info.py"))
             Continue()
 
         elif choice == "env":
-            print(f"Inside {tool_name}:",sys.executable)
-            StartScript(os.path.join("intscripts", "env-check"))
+            print(f"Inside {tool_name}:", sys.executable)
+            StartScript(os.path.join("intscripts", "env-check.py"))
             Continue()
 
         elif choice == "text":
-            StartScript(os.path.join("intscripts", "text-style-check"))
+            StartScript(os.path.join("intscripts", "text-style-check.py"))
             Continue()
-        
+
         elif choice == "up":
             if new_version:
-                print(f"{BEFORE + current_time_hour() + AFTER} {INFO} Please install the new version of the tool: {white + version} -> {green + new_version}")
-                print(f"{BEFORE + current_time_hour() + AFTER} {INFO}     or run \"git pull\" ...")
-
-                if "y" in input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Do u want to open the GitHub Page? (y/n): "):
+                print(f"{Pre('!')} Please install new version: {version} -> {new_version}")
+                if "y" in input(f"{Pre('>')} Open GitHub? (y/n): "):
                     webbrowser.open(github_url)
             else:
-                print(f"{BEFORE + current_time_hour() + AFTER} {INFO} there is no update ;)")
+                print(f"{Pre('!')} No update.")
             Continue()
-

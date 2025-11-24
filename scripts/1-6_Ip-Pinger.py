@@ -14,7 +14,7 @@ try:
     import time
     import socket
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Ip Pinger")
 
@@ -31,34 +31,34 @@ try:
                 end_time = time.time()
                 elapsed_time = (end_time - start_time) * 1000
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {ADD} Hostname: {white}{hostname}{blue} time: {white}{elapsed_time:.2f}ms{blue} port: {white}{port}{blue} bytes: {white}{bytes}{blue} status: {white}succeed{blue}"
+                    f"{Pre("+",color.RED)} Hostname: {color.WHITE}{hostname}{color.BLUE} time: {color.WHITE}{elapsed_time:.2f}ms{color.BLUE} port: {color.WHITE}{port}{color.BLUE} bytes: {color.WHITE}{bytes}{color.BLUE} status: {color.WHITE}succeed{color.BLUE}"
                 )
         except:
             elapsed_time = 0
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ERROR} Hostname: {white}{hostname}{blue} time: {white}{elapsed_time}ms{blue} port: {white}{port}{blue} bytes: {white}{bytes}{blue} status: {white}fail{blue}"
+                f"{Pre("x",color.RED)} Hostname: {color.WHITE}{hostname}{color.BLUE} time: {color.WHITE}{elapsed_time}ms{color.BLUE} port: {color.WHITE}{port}{color.BLUE} bytes: {color.WHITE}{bytes}{color.BLUE} status: {color.WHITE}fail{color.BLUE}"
             )
 
-    Slow(wifi_banner)
+    print(wifi_banner)
 
     hostname = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Ip -> " + color.RESET
+        f"{Pre(">")} Ip -> " + color.RESET
     )
 
     try:
         port_input = input(
-            f"{BEFORE + current_time_hour() + AFTER} {INPUT} Port (enter for default) -> "
+            f"{Pre(">")} Port (enter for default) -> "
             + color.RESET
         )
         port = int(port_input) if port_input else 80
 
         bytes_input = input(
-            f"{BEFORE + current_time_hour() + AFTER} {INPUT} Bytes (enter for default) -> "
+            f"{Pre(">")} Bytes (enter for default) -> "
             + color.RESET
         )
         bytes = int(bytes_input) if bytes_input else 64
     except:
-        ErrorNumber()
+        General_Error("NumberError")
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         while True:
@@ -66,4 +66,4 @@ try:
             executor.submit(PingIp, hostname, port, bytes)
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

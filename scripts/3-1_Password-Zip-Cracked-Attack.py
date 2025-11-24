@@ -17,7 +17,7 @@ try:
     from tkinter import filedialog
     from concurrent.futures import ThreadPoolExecutor
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title(f"Password Zip Cracked Attack")
 
@@ -26,7 +26,7 @@ try:
     def ChooseZipRarFile():
         try:
             print(
-                f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Enter the path to the .zip or .rar file -> {reset}"
+                f"\n{Pre(">")} Enter the path to the .zip or .rar file -> {color.RESET}"
             )
             if sys.platform.startswith("win"):
                 root = tkinter.Tk()
@@ -48,12 +48,12 @@ try:
                     filetypes=[("ICO files", "*.ico")],
                 )
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {INFO} File path: {white + file}"
+                f"{Pre("!")} File path: {color.WHITE + file}"
             )
             return file
         except:
             return input(
-                f"{BEFORE + current_time_hour() + AFTER} {INPUT} Enter the path to the .zip or .rar file -> {reset}"
+                f"{Pre(">")} Enter the path to the .zip or .rar file -> {color.RESET}"
             )
 
     def CountEncryptedFiles(file):
@@ -87,7 +87,7 @@ try:
                             archive.extract(filename, pwd=password_test.encode())
                             password_found += 1
                             print(
-                                f"{BEFORE + current_time_hour() + AFTER} {ADD} File: {white + filename} {blue}Password: {white + password_test + reset}"
+                                f"{Pre("+",color.RED)} File: {color.WHITE + filename} {color.BLUE}Password: {color.WHITE + password_test + color.RESET}"
                             )
                         except:
                             pass
@@ -98,7 +98,7 @@ try:
                             archive.extract(filename, pwd=password_test.encode())
                             password_found += 1
                             print(
-                                f"{BEFORE + current_time_hour() + AFTER} {ADD} File: {white + filename} {blue}Password: {white + password_test + reset}"
+                                f"{Pre("+",color.RED)} File: {color.WHITE + filename} {color.BLUE}Password: {color.WHITE + password_test + color.RESET}"
                             )
                         except:
                             pass
@@ -111,21 +111,21 @@ try:
         try:
             threads_number = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Threads Number -> {reset}"
+                    f"{Pre(">")} Threads Number -> {color.RESET}"
                 )
             )
             characters_number_min = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Password Characters Number Min -> {reset}"
+                    f"{Pre(">")} Password Characters Number Min -> {color.RESET}"
                 )
             )
             characters_number_max = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Password Characters Number Max -> {reset}"
+                    f"{Pre(">")} Password Characters Number Max -> {color.RESET}"
                 )
             )
         except:
-            ErrorNumber()
+            General_Error("NumberError")
 
         generated_passwords = set()
         password_found = 0
@@ -154,7 +154,7 @@ try:
                 executor.map(lambda _: TestCracked(), range(threads_number))
 
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {WAIT} Brute force password cracking in progress.. (It can be long){reset}"
+            f"{Pre("~")} Brute force password cracking in progress.. (It can be long){color.RESET}"
         )
         while password_found < count:
             Request()
@@ -169,10 +169,10 @@ try:
         ]
         password_found = 0
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} Add more list in folder: {white + path_folder_worldlist}"
+            f"{Pre("!")} Add more list in folder: {color.WHITE + path_folder_worldlist}"
         )
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {WAIT} Password cracking by world list in progress.. (It can be long){reset}"
+            f"{Pre("~")} Password cracking by world list in progress.. (It can be long){color.RESET}"
         )
 
         for file_list in files:
@@ -192,16 +192,16 @@ try:
 
         if not password_found:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {INFO} The entire world list has been checked and no passwords match."
+                f"{Pre("!")} The entire world list has been checked and no passwords match."
             )
             Continue()
 
-    Slow(decrypted_banner)
+    print(decrypted_banner)
     file = ChooseZipRarFile()
 
     count = CountEncryptedFiles(file)
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {INFO} Number of files protected by password: {white + str(count)}"
+        f"{Pre("!")} Number of files protected by password: {color.WHITE + str(count)}"
     )
     if count == 0:
         Continue()
@@ -210,19 +210,19 @@ try:
 
     print(
         f"""
- {BEFORE}01{AFTER + white} Random Character
- {BEFORE}02{AFTER + white} World List
+ {BEFORE}01{AFTER + color.WHITE} Random Character
+ {BEFORE}02{AFTER + color.WHITE} World List
  """
     )
 
-    method = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Method -> {white}")
+    method = input(f"{Pre(">")} Method -> {color.WHITE}")
 
     if method in ["01", "1"]:
         RandomCharacter(count)
     elif method in ["02", "2"]:
         WorldList()
     else:
-        ErrorChoice()
+        General_Error("ChoiceError")
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

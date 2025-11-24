@@ -19,7 +19,7 @@ try:
     import base64
     from hashlib import pbkdf2_hmac
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title(f"Password Decrypted")
 
@@ -36,7 +36,7 @@ try:
         }
         encryption = encryption_map.get(choice, "Unknown")
         print(
-            f'{BEFORE + current_time_hour() + AFTER} {ERROR} The encryption "{white + encrypted_password + red}" is not accepted by "{white + encryption + red}".'
+            f'{Pre("x",color.RED)} The encryption "{color.WHITE + encrypted_password + color.RED}" is not accepted by "{color.WHITE + encryption + color.RED}".'
         )
         Continue()
 
@@ -71,21 +71,21 @@ try:
         try:
             threads_number = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Threads Number -> {white}"
+                    f"{Pre(">")} Threads Number -> {color.WHITE}"
                 )
             )
             characters_number_min = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Password Characters Number Min -> {white}"
+                    f"{Pre(">")} Password Characters Number Min -> {color.WHITE}"
                 )
             )
             characters_number_max = int(
                 input(
-                    f"{BEFORE + current_time_hour() + AFTER} {INPUT} Password Characters Number Max -> {white}"
+                    f"{Pre(">")} Password Characters Number Max -> {color.WHITE}"
                 )
             )
         except:
-            ErrorNumber()
+            General_Error("NumberError")
 
         password = False
         generated_passwords = set()
@@ -110,7 +110,7 @@ try:
                         password = True
                         time.sleep(0.5)
                         print(
-                            f"{BEFORE + current_time_hour() + AFTER} {ADD} Password: {white + password_test + reset}"
+                            f"{Pre("+",color.RED)} Password: {color.WHITE + password_test + color.RESET}"
                         )
                         time.sleep(1)
                         Continue()
@@ -120,10 +120,10 @@ try:
                 with ThreadPoolExecutor(max_workers=threads_number) as executor:
                     executor.map(lambda _: TestDecrypted(), range(threads_number))
             except Exception:
-                ErrorNumber()
+                General_Error("NumberError")
 
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {WAIT} Brute force password cracking in progress.. (It can be long){reset}"
+            f"{Pre("~")} Brute force password cracking in progress.. (It can be long){color.RESET}"
         )
         while not password:
             Request()
@@ -131,10 +131,10 @@ try:
     def WorldList():
         path_folder_worldlist = os.path.join(tool_path, "2-Input", "WorldList")
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} Add more list in folder: {white + path_folder_worldlist}"
+            f"{Pre("!")} Add more list in folder: {color.WHITE + path_folder_worldlist}"
         )
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {WAIT} Password cracking by world list in progress.. (It can be long){reset}"
+            f"{Pre("~")} Password cracking by world list in progress.. (It can be long){color.RESET}"
         )
 
         for file in os.listdir(path_folder_worldlist):
@@ -144,7 +144,7 @@ try:
                     for line in f:
                         if CheckPassword(line.strip()):
                             print(
-                                f"{BEFORE + current_time_hour() + AFTER} {ADD} Password: {white + line.strip() + reset}"
+                                f"{Pre("+",color.RED)} Password: {color.WHITE + line.strip() + color.RESET}"
                             )
                             Continue()
 
@@ -153,40 +153,40 @@ try:
                 pass
 
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} The entire world list has been checked and no passwords match."
+            f"{Pre("!")} The entire world list has been checked and no passwords match."
         )
         Continue()
 
-    Slow(
+    print(
         f"""{decrypted_banner}
- {BEFORE}01{AFTER + white} BCRYPT
- {BEFORE}02{AFTER + white} MD5
- {BEFORE}03{AFTER + white} SHA-1
- {BEFORE}04{AFTER + white} SHA-256
- {BEFORE}05{AFTER + white} PBKDF2 (SHA-256)
- {BEFORE}06{AFTER + white} Base64 Decode
+ {BEFORE}01{AFTER + color.WHITE} BCRYPT
+ {BEFORE}02{AFTER + color.WHITE} MD5
+ {BEFORE}03{AFTER + color.WHITE} SHA-1
+ {BEFORE}04{AFTER + color.WHITE} SHA-256
+ {BEFORE}05{AFTER + color.WHITE} PBKDF2 (SHA-256)
+ {BEFORE}06{AFTER + color.WHITE} Base64 Decode
     """
     )
 
-    choice = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Method -> {reset}")
+    choice = input(f"{Pre(">")} Method -> {color.RESET}")
 
     if choice not in ["1", "01", "2", "02", "3", "03", "4", "04", "5", "05", "6", "06"]:
-        ErrorChoice()
+        General_Error("ChoiceError")
 
     encrypted_password = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Encrypted Password -> {white}"
+        f"{Pre(">")} Encrypted Password -> {color.WHITE}"
     )
     Title(f"Password Decrypted - Encrypted Password: {encrypted_password}")
 
     print(
         f"""
- {BEFORE}01{AFTER + white} Random Character
- {BEFORE}02{AFTER + white} World List
+ {BEFORE}01{AFTER + color.WHITE} Random Character
+ {BEFORE}02{AFTER + color.WHITE} World List
  """
     )
 
     method = input(
-        f"{BEFORE + current_time_hour() + AFTER} {INPUT} Brute Force Method -> {white}"
+        f"{Pre(">")} Brute Force Method -> {color.WHITE}"
     )
 
     if method in ["01", "1"]:
@@ -194,7 +194,7 @@ try:
     elif method in ["02", "2"]:
         WorldList()
     else:
-        ErrorChoice()
+        General_Error("ChoiceError")
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

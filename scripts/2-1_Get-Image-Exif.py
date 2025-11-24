@@ -11,7 +11,7 @@ try:
     from PIL import Image
     from tkinter import filedialog
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Get Image Exif")
 
@@ -20,7 +20,7 @@ try:
     def ChooseImageFile():
         try:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {INPUT} Enter the path to the image -> {reset}"
+                f"{Pre(">")} Enter the path to the image -> {color.RESET}"
             )
             image_file_types = [
                 ("Image files", "*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.tiff"),
@@ -43,12 +43,12 @@ try:
                     filetypes=image_file_types,
                 )
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {INFO} File path: {white + file}"
+                f"{Pre("!")} File path: {color.WHITE + file}"
             )
             return file
         except:
             return input(
-                f"{BEFORE + current_time_hour() + AFTER} {INPUT} Enter the path to the image -> {reset}"
+                f"{Pre(">")} Enter the path to the image -> {color.RESET}"
             )
 
     def CleanValue(value):
@@ -132,22 +132,22 @@ try:
             print()
             for key, value in sorted(exif_data.items(), key=lambda x: x[0].lower()):
                 print(
-                    f"    {INFO_ADD} {key.ljust(max_key_length)} : {white + str(value)}"
+                    f"    {Pre("+",color.BLUE)} {key.ljust(max_key_length)} : {color.WHITE + str(value)}"
                 )
                 time.sleep(0.01)
             print()
         else:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {ERROR} No information found."
+                f"{Pre("x",color.RED)} No information found."
             )
 
-    Slow(osint_banner)
+    print(osint_banner)
     image_path = ChooseImageFile()
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Searching for information in the roots of the image..."
+        f"{Pre("~")} Searching for information in the roots of the image..."
     )
     GetAllExif(image_path)
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

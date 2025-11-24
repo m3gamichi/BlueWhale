@@ -13,17 +13,17 @@ try:
     import phonenumbers
     from phonenumbers import geocoder, carrier, timezone
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 
 Title("Phone Number Lookup")
 
 try:
     phone_number = input(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Phone Number -> {color.RESET}"
+        f"\n{Pre(">")} Phone Number -> {color.RESET}"
     )
     print(
-        f"{BEFORE + current_time_hour() + AFTER} {WAIT} Information Recovery..{reset}"
+        f"{Pre("~")} Information Recovery..{color.RESET}"
     )
     try:
         parsed_number = phonenumbers.parse(phone_number, None)
@@ -76,22 +76,22 @@ try:
 
         print(
             f"""
-    {INFO_ADD} Phone        : {white}{phone_number}{blue}
-    {INFO_ADD} Formatted    : {white}{formatted_number}{blue}
-    {INFO_ADD} Status       : {white}{status}{blue}
-    {INFO_ADD} Country Code : {white}{country_code}{blue}
-    {INFO_ADD} Country      : {white}{country}{blue}
-    {INFO_ADD} Region       : {white}{region}{blue}
-    {INFO_ADD} Timezone     : {white}{timezone_info}{blue}
-    {INFO_ADD} Operator     : {white}{operator}{blue}
-    {INFO_ADD} Type Number  : {white}{type_number}{blue}
+    {Pre("+",color.BLUE)} Phone        : {color.WHITE}{phone_number}{color.BLUE}
+    {Pre("+",color.BLUE)} Formatted    : {color.WHITE}{formatted_number}{color.BLUE}
+    {Pre("+",color.BLUE)} Status       : {color.WHITE}{status}{color.BLUE}
+    {Pre("+",color.BLUE)} Country Code : {color.WHITE}{country_code}{color.BLUE}
+    {Pre("+",color.BLUE)} Country      : {color.WHITE}{country}{color.BLUE}
+    {Pre("+",color.BLUE)} Region       : {color.WHITE}{region}{color.BLUE}
+    {Pre("+",color.BLUE)} Timezone     : {color.WHITE}{timezone_info}{color.BLUE}
+    {Pre("+",color.BLUE)} Operator     : {color.WHITE}{operator}{color.BLUE}
+    {Pre("+",color.BLUE)} Type Number  : {color.WHITE}{type_number}{color.BLUE}
     """
         )
         Continue()
 
     except:
-        print(f"{BEFORE + current_time_hour() + AFTER} {INFO} Invalid Format !")
+        print(f"{Pre("!")} Invalid Format !")
         Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

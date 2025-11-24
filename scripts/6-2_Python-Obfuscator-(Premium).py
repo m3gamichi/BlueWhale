@@ -12,11 +12,11 @@ from configs.config import *
 try:
     import webbrowser
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Python Obfuscator (Premium)")
 
 try:
     print(StyleText("Comming soon"))
 except Exception as e:
-    Error(e)
+    General_Error(e)

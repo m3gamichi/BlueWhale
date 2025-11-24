@@ -14,7 +14,7 @@ try:
     import json
     import random
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Ip Generator")
 
@@ -28,22 +28,22 @@ import threading
 
 try:
     webhook = input(
-        f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Webhook ? (y/n) -> {reset}"
+        f"\n{Pre(">")} Webhook ? (y/n) -> {color.RESET}"
     )
     if webhook.lower() in ["y", "yes"]:
         webhook_url = input(
-            f"{BEFORE + current_time_hour() + AFTER} {INPUT} Webhook URL -> {reset}"
+            f"{Pre(">")} Webhook URL -> {color.RESET}"
         )
         CheckWebhook(webhook_url)
 
     try:
         threads_number = int(
             input(
-                f"{BEFORE + current_time_hour() + AFTER} {INPUT} Threads Number -> {reset}"
+                f"{Pre(">")} Threads Number -> {color.RESET}"
             )
         )
     except ValueError:
-        ErrorNumber()
+        General_Error("NumberError")
 
     def SendWebhook(embed_content):
         payload = {
@@ -58,7 +58,7 @@ try:
             requests.post(webhook_url, data=json.dumps(payload), headers=headers)
         except requests.RequestException as e:
             print(
-                f"{BEFORE + current_time_hour() + AFTER} Error sending webhook: {e}{reset}"
+                f"{Pre("x",color.RED)} Error sending webhook: {e}{color.RESET}"
             )
 
     number_valid = 0
@@ -81,7 +81,7 @@ try:
                     timeout=0.1,
                 )
             else:
-                ErrorPlateform()
+                General_Error("PlatformrError")
 
             if result.returncode == 0:
                 number_valid += 1
@@ -97,17 +97,17 @@ try:
                     }
                     SendWebhook(embed_content)
                 print(
-                    f"{BEFORE_GREEN + current_time_hour() + AFTER_GREEN} {GEN_VALID} Logs: {white}{number_invalid} invalid - {number_valid} valid{green} Status:  {white}Valid{green}  Ip: {white}{ip}{green}"
+                    f"{Pre("+",color.GREEN)} Logs: {color.WHITE}{number_invalid} invalid - {number_valid} valid{color.GREEN} Status:  {color.WHITE}Valid{color.GREEN}  Ip: {color.WHITE}{ip}{color.GREEN}"
                 )
             else:
                 number_invalid += 1
                 print(
-                    f"{BEFORE + current_time_hour() + AFTER} {GEN_INVALID} Logs: {white}{number_invalid} invalid - {number_valid} valid{blue} Status: {white}Invalid{blue} Ip: {white}{ip}{blue}"
+                    f"{Pre("x")} Logs: {color.WHITE}{number_invalid} invalid - {number_valid} valid{color.BLUE} Status: {color.WHITE}Invalid{color.BLUE} Ip: {color.WHITE}{ip}{color.BLUE}"
                 )
         except Exception:
             number_invalid += 1
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {GEN_INVALID} Logs: {white}{number_invalid} invalid - {number_valid} valid{blue} Status: {white}Invalid{blue} Ip: {white}{ip}{blue}"
+                f"{Pre("x")} Logs: {color.WHITE}{number_invalid} invalid - {number_valid} valid{color.BLUE} Status: {color.WHITE}Invalid{color.BLUE} Ip: {color.WHITE}{ip}{color.BLUE}"
             )
         Title(f"Ip Generator - Invalid: {number_invalid} - Valid: {number_valid}")
 
@@ -118,10 +118,10 @@ try:
             ) as executor:
                 executor.map(lambda _: IpCheck(), range(threads_number))
         except Exception as e:
-            ErrorNumber()
+            General_Error("NumberError")
 
     while True:
         Request()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)

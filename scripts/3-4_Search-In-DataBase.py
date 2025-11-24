@@ -13,7 +13,7 @@ try:
     import tkinter as tk
     from tkinter import filedialog
 except Exception as e:
-    ErrorModule(e)
+    General_Error(e)
 
 Title("Search DataBase")
 
@@ -22,7 +22,7 @@ try:
     def ChooseFolder():
         try:
             print(
-                f"\n{BEFORE + current_time_hour() + AFTER} {INPUT} Enter database folder path -> {reset}"
+                f"\n{Pre(">")} Enter database folder path -> {color.RESET}"
             )
             if sys.platform.startswith("win"):
                 root = tk.Tk()
@@ -37,19 +37,19 @@ try:
                     title=f"{name_tool} {version} - Choose a folder"
                 )
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {INFO} Folder path: {white + folder_database}"
+                f"{Pre("!")} Folder path: {color.WHITE + folder_database}"
             )
         except:
             folder_database = input(
-                f"{BEFORE + current_time_hour() + AFTER} {INPUT} Enter database folder path -> {reset}"
+                f"{Pre(">")} Enter database folder path -> {color.RESET}"
             )
 
         return folder_database
 
     folder_database = ChooseFolder()
-    search = input(f"{BEFORE + current_time_hour() + AFTER} {INPUT} Search -> {reset}")
+    search = input(f"{Pre(">")} Search -> {color.RESET}")
 
-    print(f"{BEFORE + current_time_hour() + AFTER} {WAIT} Search in DataBase..")
+    print(f"{Pre("~")} Search in DataBase..")
 
     def TitleSearch(files_searched, element):
         Title(f"Search DataBase - File Total: {files_searched} - File: {element}")
@@ -62,7 +62,7 @@ try:
             results_found = False
             folder = os.path.join(folder)
             print(
-                f"{BEFORE + current_time_hour() + AFTER} {WAIT} Search in {white}{folder}"
+                f"{Pre("~")} Search in {color.WHITE}{folder}"
             )
             for element in os.listdir(folder):
                 chemin_element = os.path.join(folder, element)
@@ -79,14 +79,14 @@ try:
                                 if search in line:
                                     results_found = True
                                     line_info = line.strip().replace(
-                                        search, f"{color.YELLOW}{search}{white}"
+                                        search, f"{color.YELLOW}{search}{color.WHITE}"
                                     )
                                     print(
-                                        f"""{blue}
-- Folder : {white}{folder}{blue}
-- File   : {white}{element}{blue}
-- Line   : {white}{line_number}{blue}
-- Result : {white}{line_info}
+                                        f"""{color.BLUE}
+- Folder : {color.WHITE}{folder}{color.BLUE}
+- File   : {color.WHITE}{element}{color.BLUE}
+- Line   : {color.WHITE}{line_number}{color.BLUE}
+- Result : {color.WHITE}{line_info}
     """
                                     )
                     except UnicodeDecodeError:
@@ -100,42 +100,42 @@ try:
                                     if search in line:
                                         results_found = True
                                         line_info = line.strip().replace(
-                                            search, f"{color.YELLOW}{search}{white}"
+                                            search, f"{color.YELLOW}{search}{color.WHITE}"
                                         )
                                         print(
-                                            f"""{blue}
-- Folder : {white}{folder}{blue}
-- File   : {white}{element}{blue}
-- Line   : {white}{line_number}{blue}
-- Result : {white}{line_info}
+                                            f"""{color.BLUE}
+- Folder : {color.WHITE}{folder}{color.BLUE}
+- File   : {color.WHITE}{element}{color.BLUE}
+- Line   : {color.WHITE}{line_number}{color.BLUE}
+- Result : {color.WHITE}{line_info}
     """
                                         )
                         except Exception as e:
                             print(
-                                f'{BEFORE + current_time_hour() + AFTER} {ERROR} Error reading file "{white}{element}{blue}": {white}{e}'
+                                f'{Pre("x",color.RED)} Error reading file "{color.WHITE}{element}{color.BLUE}": {color.WHITE}{e}'
                             )
                     except Exception as e:
                         print(
-                            f'{BEFORE + current_time_hour() + AFTER} {ERROR} Error reading file "{white}{element}{blue}": {white}{e}'
+                            f'{Pre("x",color.RED)} Error reading file "{color.WHITE}{element}{color.BLUE}": {color.WHITE}{e}'
                         )
             return results_found
 
         results_found = Check(folder_database)
         if not results_found:
             print(
-                f'{BEFORE + current_time_hour() + AFTER} {INFO} No result found for "{white}{search}{blue}".'
+                f'{Pre("!")} No result found for "{color.WHITE}{search}{color.BLUE}".'
             )
 
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {INFO} Total files searched: {white}{files_searched}"
+            f"{Pre("!")} Total files searched: {color.WHITE}{files_searched}"
         )
 
     except Exception as e:
         print(
-            f"{BEFORE + current_time_hour() + AFTER} {ERROR} Error during search: {white}{e}"
+            f"{Pre("x",color.RED)} Error during search: {color.WHITE}{e}"
         )
 
     Continue()
 
 except Exception as e:
-    Error(e)
+    General_Error(e)
