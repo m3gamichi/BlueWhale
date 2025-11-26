@@ -1,16 +1,16 @@
-tool_name = "BlueWhale"
-type_tool = "Multi-Tools"
-version = "0.0.2"
+tool_name  = "BlueWhale"
+type_tool  = "Multi-Tools"
+version    = "0.0.2"
 
 github_url = "https://github.com/Megamichi123/BlueWhale"
 config_url = "https://raw.githubusercontent.com/Megamichi123/BlueWhale/refs/heads/main/configs/config.py"
 
-main_dev = "m3gamichi"
-creator = "loxy0dev"
-platform = "Windows & Linux"
-license = "./LICENSE"
+main_dev   = "m3gamichi"
+creator    = "loxy0dev"
+platform   = "Windows & Linux"
+license    = "./LICENSE"
 
-Websites = ["https://google.com"]
+Websites   = ["https://google.com"]
 
 accent_color_a = (52, 120, 235) #3478eb
 accent_color_b = (52, 220, 235) #34dceb

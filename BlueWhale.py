@@ -113,22 +113,7 @@ def build_options(scripts_path):
 
     return pages
 
-
-
-# --- Aufruf ---
-scripts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts")
 options = build_options(scripts_path)
-
-# Debug
-import pprint
-pprint.pprint(options)
-
-
-#print(options); exit()
-
-# ---------------------------------------------------------------------
-# get_tool_script_name
-# ---------------------------------------------------------------------
 
 def get_tool_script_name(id: str):
     try:
@@ -156,10 +141,8 @@ def get_tool_script_name(id: str):
 
     filename_name = name.replace(" ", "-")
     filename = f"{r}-{i}_{filename_name}.py"
-    #print(filename)
     return filename
 
-# ---------------------------------------------------------------------
 
 def StartScript(script_file=str, cwd=tool_path):
     if script_file is None:
@@ -265,7 +248,7 @@ except:
 menu_index = 0
 if __name__ == "__main__":
     while True:
-
+        Clear()
         Title(f"Menu {menu_index}")
         print(StyleText(CenterMultilineText(banner,line_len)))
         print(StyleText(CenterMultilineText("Version: "+v,line_len)))

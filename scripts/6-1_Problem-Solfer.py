@@ -5,9 +5,7 @@
 # EN:
 #     - Touch or modify the code below. If there is an error,
 #     - please fix it and make a pull request ;)
-
-print("bla")
-input()
+from configs.util import *
 
 states = {
     1: ["DOES IT WORK?", 0, 2, "DON' MESS WITH IT", ""],
@@ -23,13 +21,13 @@ while running:
     if state == 0:
         print("NO PROBLEM!!")
         running = False
-        exit()
+        Continue()
+        break
     active_data = states[state]
     antwort = input(f"{active_data[0]} :")
-    if antwort == "yes":
+    if antwort.startswith(("y","j")):
         state = active_data[1]
         print(active_data[3])
     else:
         state = active_data[2]
         print(active_data[4])
-Continue()

@@ -33,12 +33,6 @@ scripts_path = os.path.join(tool_path, "scripts")
 
 
 color = colorama.Fore
-#reset = color.RESET
-#white = color.WHITE
-#blue = color.BLUE
-#red = color.RED
-#green = color.GREEN
-#yellow = color.YELLOW
 
 
 if sys.platform.startswith("win") or os.name == "nt":
@@ -59,21 +53,7 @@ def current_time_hour():
 BEFORE = f"{color.BLUE}[{color.WHITE}"
 AFTER = f"{color.BLUE}]"
 
-#BEFORE_GREEN = f"{green}[{color.WHITE}"
-#AFTER_GREEN = f"{green}]"
 
-#INPUT = f"{BEFORE}>{AFTER} |"
-#INFO  = f"{BEFORE}!{AFTER} |"
-#ERROR = f"{BEFORE}x{AFTER} |"
-#ADD   = f"{BEFORE}+{AFTER} |"
-#WAIT  = f"{BEFORE}~{AFTER} |"
-#NOTE  = f"{BEFORE}NOTE{AFTER} |"
-
-#GEN_VALID = f"{BEFORE_GREEN}+{AFTER_GREEN} |"
-#GEN_INVALID = f"{BEFORE}x{AFTER} |"
-
-#INFO_ADD = f"{color.WHITE}[{color.BLUE}+{color.WHITE}]{color.BLUE}"
-#---
 
 def Pre(string, col=color.BLUE):
     return f"{col}[{color.RESET+current_time_hour()+col}] [{color.RESET+string+col}] | {color.RESET}"
