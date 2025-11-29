@@ -17,7 +17,7 @@
 
 
 <h1 align="center">Make you own tools?</h1>
-- Check out the [documentation](/docs.md). If you'd like to create your own tools, feel free to submit a pull request. I'll then merge it.
+- Check out the <a href="docs.md">documentation</a>. If you'd like to create your own tools, feel free to submit a pull request. I'll then merge it.
 
 
 <h1 align="center">Disclaimer</h1>
