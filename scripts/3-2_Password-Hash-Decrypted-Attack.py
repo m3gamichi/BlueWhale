@@ -129,7 +129,7 @@ try:
             Request()
 
     def WorldList():
-        path_folder_worldlist = os.path.join(tool_path, "2-Input", "WorldList")
+        path_folder_worldlist = os.path.join(scripts_path, "data", "worldlists")
         print(
             f"{Pre("!")} Add more list in folder: {color.WHITE + path_folder_worldlist}"
         )
@@ -159,12 +159,12 @@ try:
 
     print(
         f"""{decrypted_banner}
- {BEFORE}01{AFTER + color.WHITE} BCRYPT
- {BEFORE}02{AFTER + color.WHITE} MD5
- {BEFORE}03{AFTER + color.WHITE} SHA-1
- {BEFORE}04{AFTER + color.WHITE} SHA-256
- {BEFORE}05{AFTER + color.WHITE} PBKDF2 (SHA-256)
- {BEFORE}06{AFTER + color.WHITE} Base64 Decode
+ {color.BLUE}[{color.WHITE}01{AFTER + color.WHITE} BCRYPT
+ {color.BLUE}[{color.WHITE}02{AFTER + color.WHITE} MD5
+ {color.BLUE}[{color.WHITE}03{AFTER + color.WHITE} SHA-1
+ {color.BLUE}[{color.WHITE}04{AFTER + color.WHITE} SHA-256
+ {color.BLUE}[{color.WHITE}05{AFTER + color.WHITE} PBKDF2 (SHA-256)
+ {color.BLUE}[{color.WHITE}06{AFTER + color.WHITE} Base64 Decode
     """
     )
 
@@ -180,8 +180,8 @@ try:
 
     print(
         f"""
- {BEFORE}01{AFTER + color.WHITE} Random Character
- {BEFORE}02{AFTER + color.WHITE} World List
+ {color.BLUE}[{color.WHITE}01{AFTER + color.WHITE} Random Character
+ {color.BLUE}[{color.WHITE}02{AFTER + color.WHITE} World List
  """
     )
 

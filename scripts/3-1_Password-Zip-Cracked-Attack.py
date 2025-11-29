@@ -161,7 +161,7 @@ try:
 
     def WorldList():
         global password_found
-        path_folder_worldlist = os.path.join(tool_path, "2-Input", "WorldList")
+        path_folder_worldlist = os.path.join(scripts_path, "data", "worldlists")
         files = [
             f
             for f in os.listdir(path_folder_worldlist)
@@ -210,8 +210,8 @@ try:
 
     print(
         f"""
- {BEFORE}01{AFTER + color.WHITE} Random Character
- {BEFORE}02{AFTER + color.WHITE} World List
+ {color.BLUE}[{color.WHITE}01{AFTER + color.WHITE} Random Character
+ {color.BLUE}[{color.WHITE}02{AFTER + color.WHITE} World List
  """
     )
 

@@ -21,12 +21,12 @@ Title(f"Password Encrypted")
 try:
     print(
         f"""{encrypted_banner}
- {BEFORE}01{AFTER}{color.WHITE} BCRYPT
- {BEFORE}02{AFTER}{color.WHITE} MD5
- {BEFORE}03{AFTER}{color.WHITE} SHA-1
- {BEFORE}04{AFTER}{color.WHITE} SHA-256
- {BEFORE}05{AFTER}{color.WHITE} PBKDF2 (SHA-256)
- {BEFORE}06{AFTER}{color.WHITE} Base64 Decode
+ {color.BLUE}[{color.WHITE}01{color.BLUE}]{color.WHITE} BCRYPT
+ {color.BLUE}[{color.WHITE}02{color.BLUE}]{color.WHITE} MD5
+ {color.BLUE}[{color.WHITE}03{color.BLUE}]{color.WHITE} SHA-1
+ {color.BLUE}[{color.WHITE}04{color.BLUE}]{color.WHITE} SHA-256
+ {color.BLUE}[{color.WHITE}05{color.BLUE}]{color.WHITE} PBKDF2 (SHA-256)
+ {color.BLUE}[{color.WHITE}06{color.BLUE}]{color.WHITE} Base64 Decode
     """
     )
 

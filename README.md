@@ -16,6 +16,10 @@
 - <a href="#installation">Installation</a>  
 
 
+<h1 align="center">Make you own tools?</h1>
+- Check out the [documentation](/docs.md). If you'd like to create your own tools, feel free to submit a pull request. I'll then merge it.
+
+
 <h1 align="center">Disclaimer</h1>
 
 
@@ -36,51 +40,45 @@
    
 ```
 ┌── ⚒️ - BlueWhale
-│   └── Info
 │
 ├── 💰 - Free
-│   ├── Python Obfuscator (not implemented now)
-│   ├── Discord Rat (idk what that is)
-│   └── Stresser (idk what that is)
+│   └── Python Obfuscator (not implemented now)
 │
 ├── 🕵️‍♂️ - Network Scanner
-│   ├── Sql Vulnerability Scanner (not existing in RedTiger)
-│   ├── Website Vulnerability Scanner ✅
-│   ├── Website Scanner ✅
-│   ├── Website Url Scanner ✅
-│   ├── Ip Scanner ✅
-│   ├── Ip Port Scanner ✅
-│   └── Ip Pinger ✅
+│   ├── Website Vulnerability Scanner
+│   ├── Website Scanner
+│   ├── Website Url Scanner
+│   ├── Ip Scanner
+│   ├── Ip Port Scanner
+│   └── Ip Pinger
 │
 ├── 🔎 - Osint
-│   ├── Get Image Exif ✅
-│   ├── Username Tracker ✅
-│   ├── Email Lookup ✅
-│   ├── Phone Number Lookup ✅
-│   └── Ip Lookup ✅
+│   ├── Get Image Exif
+│   ├── Username Tracker
+│   ├── Email Lookup
+│   ├── Phone Number Lookup
+│   └── Ip Lookup
 │
 ├── 🔧 - Utilities
-│   ├── Password Zip Cracked Attack ✅
-│   ├── Password Decrypted Attack ✅
-│   ├── Password Encrypted ✅
-│   ├── Search In DataBase ✅
-│   ├── Dark Web Links ✅...
-│   └── Ip Generator ✅
+│   ├── Password Zip Cracked Attack
+│   ├── Password Decrypted Attack
+│   ├── Password Encrypted
+│   ├── Search In DataBase
+│   ├── Dark Web Links ...
+│   └── Ip Generator
 │
 ├── 📞 - Discord Tools
-│   ├── Token Discord
-│   │   └── Discord Token Info ✅
 │   │
 │   ├── Webhook Discord
-│   │   └── Discord Webhook Info ✅
+│   │   └── Discord Webhook Info
 │   │
-│   ├── Discord Server Info ✅
-│   └── Discord Nitro Generator ✅
+│   ├── Discord Server Info
+│   └── Discord Nitro Generator
 │
 └── 🎮 - Roblox Tools 
-    ├── Roblox Cookie Info ✅
-    ├── Roblox User Info ✅
-    └── Roblox Id Info ✅
+    ├── Roblox Cookie Info
+    ├── Roblox User Info
+    └── Roblox Id Info
 ```
 <h1 align="center">Requirements</h1>
 

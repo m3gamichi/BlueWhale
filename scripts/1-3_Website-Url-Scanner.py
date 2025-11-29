@@ -97,8 +97,8 @@ try:
     domain = re.sub(r"^https?://", "", website_url).split("/")[0]
     print(
         f"""
- {BEFORE}01{AFTER}{color.WHITE} Only Url
- {BEFORE}02{AFTER}{color.WHITE} All Website
+ {color.BLUE}[{color.WHITE}01{color.BLUE}]{color.WHITE} Only Url
+ {color.BLUE}[{color.WHITE}02{color.BLUE}]{color.WHITE} All Website
     """
     )
     choice = input(f"{Pre(">")} Choice -> {color.RESET}")

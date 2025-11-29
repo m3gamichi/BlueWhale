@@ -73,9 +73,9 @@ u can print some banner using print():
 - wifi_banner
 - phishing_banner
 - decrypted_banner
-- encrypted_banner -> will be changed in future
+- encrypted_banner
 - scan_banner
-- sql_banner -> will be changed in future
+- sql_banner
 - map_banner
 - virus_banner
 
